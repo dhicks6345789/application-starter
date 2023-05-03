@@ -1,9 +1,12 @@
+package main
+
+import (
+  "time"
+)
+
 func main() {
-  app := &App{}
-  app.startLogging()
-  app.monitorOperatingSystemSignals()
-  
-  go app.processLabResults()
-  
-  select {} // block, so the program stays resident
+  for {
+    time.Sleep(5 * time.Second)
+  }
+  select {} // Block so the program stays resident.
 }
