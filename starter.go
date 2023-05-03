@@ -34,6 +34,9 @@ func main() {
     tries = tries + 1
   }
   
+  fmt.Println("Done starting.")
+  time.Sleep(10 * time.Second)
+  
   explorerErr := exec.Command("C:\\Windows\\explorer.exe").Start()
   if explorerErr != nil {
     fmt.Println(explorerErr)
