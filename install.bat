@@ -25,11 +25,10 @@ copy /b/v/y application-starter\setExplorer.reg "C:\Program Files\Application St
 copy /b/v/y application-starter\setStarter.reg "C:\Program Files\Application Starter"
 
 echo Setting up Windows service...
-rem application-starter\nssm-2.24\win64\nssm install ApplicationStarter "C:\Program Files\Application Starter\service.exe" > nul 2>&1
-application-starter\nssm\2.24\win64\nssm install ApplicationStarter "C:\Program Files\Application Starter\service.exe"
-application-starter\nssm\2.24\win64\nssm set ApplicationStarter DisplayName "Application Starter"
-application-starter\nssm\2.24\win64\nssm set ApplicationStarter AppNoConsole 1
-application-starter\nssm\2.24\win64\nssm set ApplicationStarter Start SERVICE_AUTO_START
+application-starter\nssm\2.24\win64\nssm install ApplicationStarter "C:\Program Files\Application Starter\service.exe" > nul 2>&1
+application-starter\nssm\2.24\win64\nssm set ApplicationStarter DisplayName "Application Starter" > nul 2>&1
+application-starter\nssm\2.24\win64\nssm set ApplicationStarter AppNoConsole 1 > nul 2>&1
+application-starter\nssm\2.24\win64\nssm set ApplicationStarter Start SERVICE_AUTO_START > nul 2>&1
 net start ApplicationStarter
 
 Set currentDir=%cd%
