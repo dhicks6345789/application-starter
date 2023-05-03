@@ -37,7 +37,7 @@ func main() {
   }
   
   // Set the Shell registry value back to this application.
-  regErr := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
+  regErr = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
   if regErr != nil {
     fmt.Println(regErr)
   }
