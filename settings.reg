@@ -5,4 +5,4 @@ Windows Registry Editor Version 5.00
 "DefaultWebBrowser"="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
 
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders]
-"Desktop"="G:\\Mr Drive\\Desktop"
+"Desktop"="G:\\My Drive\\Desktop"
