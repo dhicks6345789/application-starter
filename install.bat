@@ -39,4 +39,8 @@ net start ApplicationStarter
 Set currentDir=%cd%
 regedit /S %currentDir%\application-starter\settings.reg
 
+echo Testing...
+net stop ApplicationStarter
+"C:\Program Files\Application Starter\service.exe"
+
 echo Done!
