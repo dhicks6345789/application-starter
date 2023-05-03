@@ -2,6 +2,7 @@
 echo Installing...
 
 erase starter.exe
+go get golang.org/x/sys/windows/registry
 go build application-starter\starter.go
 
 if not exist "C:\Program Files\Application Starter" (
