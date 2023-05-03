@@ -6,7 +6,7 @@ import "os"
 import "os/exec"
 
 func main() {
-  driveErr := exec.Command("C:\\Program Files\\Google\Drive File Stream\\launch.bat").Start()
+  driveErr := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
   if driveErr != nil {
     fmt.Println(driveErr)
   }
