@@ -11,6 +11,11 @@ func main() {
     fmt.Println(driveErr)
   }
   
+  regErr := exec.Command("REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon /v Shell /d Explorer.exe /f").Start()
+  if regErr != nil {
+    fmt.Println(regErr)
+  }
+  
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
   for os.IsNotExist(pathErr) && tries < 10 {
