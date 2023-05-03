@@ -5,6 +5,7 @@ import (
   "time"
   "os"
   "os/exec"
+  "net/http"
 )
 
 func main() {
@@ -15,10 +16,11 @@ func main() {
   }
   
   // Set the Shell registry value temporarily back to "Explorer.exe" so taht Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and so on.
-  err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
+  HTTPResp, HTTPErr := http.Get("http://localhost:8090/setExplorer")
   if err != nil {
-    fmt.Println(err)
+    fmt.Println(HTTErr)
   }
+  fmt.Println(HTTPResp)
   
   // Wait for Google Drive to be ready.
   tries := 1
