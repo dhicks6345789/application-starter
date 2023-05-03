@@ -1,12 +1,15 @@
 package main
 
 import (
+  "fmt"
   "time"
+  "http"
 )
 
 func main() {
-  for {
-    time.Sleep(5 * time.Second)
+  http.HandleFunc("/", func (theResponseWriter http.ResponseWriter, theRequest *http.Request) {
+			if strings.HasPrefix(theRequest.URL.Path, "/setExplorer") {
+        fmt.println("Handle setExplorer")
+      }
   }
-  select {} // Block so the program stays resident.
 }
