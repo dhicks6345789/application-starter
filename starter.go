@@ -15,12 +15,9 @@ func main() {
     fmt.Println(err)
   }
   
-  // Set the Shell registry value temporarily back to "Explorer.exe" so taht Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and so on.
-  HTTPResp, HTTPErr := http.Get("http://localhost:8090/setExplorer")
-  if HTTPErr != nil {
-    fmt.Println(HTTPErr)
-  }
-  fmt.Println(HTTPResp)
+  // Set the Shell registry value temporarily back to "Explorer.exe" so that Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and
+  // so on. For this we need to have elevated privalages, so we ask a service running as the system user to do the operation.
+  _, _ := http.Get("http://localhost:8090/setExplorer")
   
   // Wait for Google Drive to be ready.
   tries := 1
@@ -39,8 +36,5 @@ func main() {
   }
   
   // Set the Shell registry value back to this application.
-  err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
-  if err != nil {
-    fmt.Println(err)
-  }
+  _, _ := http.Get("http://localhost:8090/setStarter")
 }
