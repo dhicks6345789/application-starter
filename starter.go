@@ -6,6 +6,11 @@ import "os"
 import "os/exec"
 
 func main() {
+  driveErr := exec.Command("C:\\Program Files\\Google\Drive File Stream\\launch.bat").Start()
+  if driveErr != nil {
+    fmt.Println(driveErr)
+  }
+  
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
   for os.IsNotExist(pathErr) && tries < 5 {
@@ -14,8 +19,9 @@ func main() {
     _, pathErr = os.Stat("G:\\My Drive");
     tries = tries + 1
   }
-  err := exec.Command("C:\\Windows\\explorer.exe").Start()
-  if err != nil {
-    fmt.Println(err)
+  
+  explorerErr := exec.Command("C:\\Windows\\explorer.exe").Start()
+  if explorerErr != nil {
+    fmt.Println(explorerErr)
   }
 }
