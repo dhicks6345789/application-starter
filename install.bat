@@ -2,9 +2,11 @@
 echo Installing...
 
 erase starter.exe
+erase go.mod
 copy application-starter\starter.go .
-copy application-starter\go.mod .
+rem copy application-starter\go.mod .
 rem go get golang.org/x/sys/windows/registry
+go get github.com/luisiturrios/gowin
 go build starter.go
 
 if not exist "C:\Program Files\Application Starter" (
