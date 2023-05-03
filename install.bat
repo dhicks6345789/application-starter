@@ -1,9 +1,7 @@
 @echo off
 
 echo Building Go applications...
-erase starter.exe
 go build application-starter\starter.go
-erase service.exe
 go build application-starter\service.go
 
 echo Installing...
@@ -11,7 +9,9 @@ if not exist "C:\Program Files\Application Starter" (
   mkdir "C:\Program Files\Application Starter"
 )
 copy /b/v/y starter.exe "C:\Program Files\Application Starter"
+erase starter.exe
 copy /b/v/y service.exe "C:\Program Files\Application Starter"
+erase service.exe
 copy /b/v/y application-starter\setExplorer.reg "C:\Program Files\Application Starter"
 copy /b/v/y application-starter\setStarter.reg "C:\Program Files\Application Starter"
 
