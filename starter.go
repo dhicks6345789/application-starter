@@ -5,7 +5,7 @@ import (
   "time"
   "os"
   "os/exec"
-  "golang.org/x/sys/windows/registry"
+  //"golang.org/x/sys/windows/registry"
 )
 
 func main() {
@@ -14,16 +14,16 @@ func main() {
     fmt.Println(driveErr)
   }
   
-  /*regErr := exec.Command("REG ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon /v Shell /d Explorer.exe /f").Start()
+  regErr := exec.Command("REG", "ADD", "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "/v", "Shell", "/d", "Explorer.exe", "/f").Start()
   if regErr != nil {
     fmt.Println(regErr)
-  }*/
-  regKey, regErr := registry.OpenKey(registry.HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon", registry.QUERY_VALUE)
+  }
+  /*regKey, regErr := registry.OpenKey(registry.HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon", registry.QUERY_VALUE)
   if regErr != nil {
     fmt.Println(regErr)
   }
   regKey.SetStringValue("Shell", "Explorer.exe")
-  regErr = regKey.Close()
+  regErr = regKey.Close()*/
   
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
