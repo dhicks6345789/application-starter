@@ -2,7 +2,16 @@
 
 echo Compiling Go code...
 go build application-starter\starter.go
+if not exist starter.exe (
+  echo Compile fail - starter.go
+  exit /B 1
+)
+
 go build application-starter\service.go
+if not exist service.exe (
+  echo Compile fail - service.go
+  exit /B 1
+)
 
 echo Installing...
 if not exist "C:\Program Files\Application Starter" (
