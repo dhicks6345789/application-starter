@@ -31,7 +31,7 @@ func main() {
   /*regErr = gowin.WriteStringReg("HKLM",`Software\Microsoft\Windows NT\CurrentVersion\Winlogon`,"Shell","Explorer.exe")
   if regErr != nil {
     fmt.Println(regErr)
-  }*
+  }*/
   
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
