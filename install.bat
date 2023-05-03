@@ -1,6 +1,6 @@
 @echo off
 
-echo Building Go applications...
+echo Compiling Go code...
 go build application-starter\starter.go
 go build application-starter\service.go
 
