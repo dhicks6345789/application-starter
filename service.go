@@ -20,5 +20,15 @@ func main() {
       }
 	  }
   })
+	if strings.HasPrefix(theRequest.URL.Path, "/setStarter") {
+		  fmt.Println("Handle setStarter")
+      err := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
+      if err != nil {
+        fmt.Fprint(theResponseWriter, err)
+      } else {
+        fmt.Fprint(theResponseWriter, "OK")
+      }
+	  }
+  })
   log.Fatal(http.ListenAndServe("localhost:8090", nil))
 }
