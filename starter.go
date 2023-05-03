@@ -5,7 +5,8 @@ import (
   "time"
   "os"
   "os/exec"
-  "golang.org/x/sys/windows/registry"
+  //"golang.org/x/sys/windows/registry"
+  "github.com/luisiturrios/gowin"
 )
 
 func main() {
@@ -18,12 +19,16 @@ func main() {
   if regErr != nil {
     fmt.Println(regErr)
   }*/
-  regKey, regErr := registry.OpenKey(registry.HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon", registry.QUERY_VALUE)
+/*  regKey, regErr := registry.OpenKey(registry.HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon", registry.QUERY_VALUE)
   if regErr != nil {
     fmt.Println(regErr)
   }
   regKey.SetStringValue("Shell", "Explorer.exe")
-  regErr = regKey.Close()
+  regErr = regKey.Close()*/
+  regErr = gowin.WriteStringReg("HKLM",`Software\Microsoft\Windows NT\CurrentVersion\Winlogon`,"Shell","Explorer.exe")
+  if regErr != nil {
+    fmt.Println(regErr)
+  }
   
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
