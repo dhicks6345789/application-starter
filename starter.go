@@ -16,7 +16,7 @@ func main() {
   }
   
   //regErr := exec.Command("cmd", "/C", "REG ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon /v Shell /d Explorer.exe /f").Start()
-  regErr := exec.Command(" C:\Windows\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
+  regErr := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
   if regErr != nil {
     fmt.Println(regErr)
   }
