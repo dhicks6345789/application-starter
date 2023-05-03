@@ -9,15 +9,15 @@ import (
 
 func main() {
   // Make sure Google Drive is started.
-  driveErr := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
-  if driveErr != nil {
-    fmt.Println(driveErr)
+  err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
+  if err != nil {
+    fmt.Println(err)
   }
   
   // Set the Shell registry value temporarily back to "Explorer.exe" so taht Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and so on.
-  regErr := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
-  if regErr != nil {
-    fmt.Println(regErr)
+  err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
+  if err != nil {
+    fmt.Println(err)
   }
   
   // Wait for Google Drive to be ready.
@@ -31,14 +31,14 @@ func main() {
   }
   
   // Start Windows Explorer to display the desktop.
-  explorerErr := exec.Command("C:\\Windows\\explorer.exe").Start()
-  if explorerErr != nil {
-    fmt.Println(explorerErr)
+  err = exec.Command("C:\\Windows\\explorer.exe").Start()
+  if err != nil {
+    fmt.Println(err)
   }
   
   // Set the Shell registry value back to this application.
-  regErr = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
-  if regErr != nil {
-    fmt.Println(regErr)
+  err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
+  if err != nil {
+    fmt.Println(err)
   }
 }
