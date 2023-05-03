@@ -6,11 +6,11 @@ import "os"
 import "os/exec"
 
 func main() {
-  _, err := os.Stat("G:\\My Drive");
-  for os.IsNotExist(err) {
+  _, pathErr := os.Stat("G:\\My Drive");
+  for os.IsNotExist(pathErr) {
     fmt.Println("Google Drive not ready yet.")
     time.Sleep(5 * time.Second)
-    _, err = os.Stat("G:\\My Drive");
+    _, pathErr = os.Stat("G:\\My Drive");
   }
   err := exec.Command("C:\\Windows\\explorer.exe").Start()
   if err != nil {
