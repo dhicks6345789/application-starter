@@ -2,6 +2,7 @@
 echo Installing...
 
 erase starter.exe
+cp application-starter\go.mod .
 go install golang.org/x/sys/windows/registry@latest
 go build application-starter\starter.go
 
