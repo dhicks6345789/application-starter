@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\Software\Google\DriveFS]
+"AutoStartOnLogin"=""
+"DefaultWebBrowser"="C:\Program Files\Google\Chrome\Application\chrome.exe"
