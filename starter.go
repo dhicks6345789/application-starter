@@ -6,7 +6,7 @@ import (
   "os"
   "os/exec"
   //"golang.org/x/sys/windows/registry"
-  "github.com/luisiturrios/gowin"
+  //"github.com/luisiturrios/gowin"
 )
 
 func main() {
@@ -15,20 +15,23 @@ func main() {
     fmt.Println(driveErr)
   }
   
-  /*regErr := exec.Command("cmd", "/C", "REG ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon /v Shell /d Explorer.exe /f").Start()
+  //regErr := exec.Command("cmd", "/C", "REG ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon /v Shell /d Explorer.exe /f").Start()
+  regErr := exec.Command(" C:\Windows\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
   if regErr != nil {
     fmt.Println(regErr)
-  }*/
-/*  regKey, regErr := registry.OpenKey(registry.HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon", registry.QUERY_VALUE)
+  }
+  
+  /*regKey, regErr := registry.OpenKey(registry.HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon", registry.QUERY_VALUE)
   if regErr != nil {
     fmt.Println(regErr)
   }
   regKey.SetStringValue("Shell", "Explorer.exe")
   regErr = regKey.Close()*/
-  regErr = gowin.WriteStringReg("HKLM",`Software\Microsoft\Windows NT\CurrentVersion\Winlogon`,"Shell","Explorer.exe")
+  
+  /*regErr = gowin.WriteStringReg("HKLM",`Software\Microsoft\Windows NT\CurrentVersion\Winlogon`,"Shell","Explorer.exe")
   if regErr != nil {
     fmt.Println(regErr)
-  }
+  }*
   
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
