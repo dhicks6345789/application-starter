@@ -1,7 +1,7 @@
 package main
 
 import "fmt"
-import "exec"
+import "os/exec"
 
 func main() {
   fmt.Println("Hello, world!")
