@@ -16,4 +16,5 @@ Windows Registry Editor Version 5.00
 ; "DeafultDomainName"="DOMAIN"
 ; "DefaultUserName"="user"
 ; "DefaultPassword"="password"
-"Shell"="C:\\Program Files\\Application Starter\\starter.exe"
+; "Shell"="C:\\Program Files\\Application Starter\\starter.exe"
+"Shell"="Explorer.exe"
