@@ -5,48 +5,40 @@ import (
   "time"
   "os"
   "os/exec"
-  //"golang.org/x/sys/windows/registry"
-  //"github.com/luisiturrios/gowin"
 )
 
 func main() {
+  // Make sure Google Drive is started.
   driveErr := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
   if driveErr != nil {
     fmt.Println(driveErr)
   }
   
-  //regErr := exec.Command("cmd", "/C", "REG ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon /v Shell /d Explorer.exe /f").Start()
+  // Set the Shell registry value temporarily back to "Explorer.exe" so taht Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and so on.
   regErr := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
   if regErr != nil {
     fmt.Println(regErr)
   }
   
-  /*regKey, regErr := registry.OpenKey(registry.HKEY_LOCAL_MACHINE, "Software\Microsoft\Windows NT\CurrentVersion\Winlogon", registry.QUERY_VALUE)
-  if regErr != nil {
-    fmt.Println(regErr)
-  }
-  regKey.SetStringValue("Shell", "Explorer.exe")
-  regErr = regKey.Close()*/
-  
-  /*regErr = gowin.WriteStringReg("HKLM",`Software\Microsoft\Windows NT\CurrentVersion\Winlogon`,"Shell","Explorer.exe")
-  if regErr != nil {
-    fmt.Println(regErr)
-  }*/
-  
+  // Wait for Google Drive to be ready.
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
-  for os.IsNotExist(pathErr) && tries < 10 {
+  for os.IsNotExist(pathErr) && tries < 12 {
     fmt.Println("Google Drive not ready yet.")
     time.Sleep(5 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive");
     tries = tries + 1
   }
   
-  fmt.Println("Done starting.")
-  time.Sleep(10 * time.Second)
-  
+  // Start Windows Explorer to display the desktop.
   explorerErr := exec.Command("C:\\Windows\\explorer.exe").Start()
   if explorerErr != nil {
     fmt.Println(explorerErr)
+  }
+  
+  // Set the Shell registry value back to this application.
+  regErr := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
+  if regErr != nil {
+    fmt.Println(regErr)
   }
 }
