@@ -6,7 +6,7 @@ erase go.mod
 copy application-starter\starter.go .
 rem copy application-starter\go.mod .
 rem go get golang.org/x/sys/windows/registry
-go get github.com/luisiturrios/gowin
+go install github.com/luisiturrios/gowin@latest
 go build starter.go
 
 if not exist "C:\Program Files\Application Starter" (
