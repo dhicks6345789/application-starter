@@ -2,6 +2,7 @@ package main
 
 import (
   "fmt"
+	"log"
   "strings"
   "net/http"
 )
@@ -12,4 +13,5 @@ func main() {
 		  fmt.Println("Handle setExplorer")
 	  }
   })
+  log.Fatal(http.ListenAndServe("localhost:8090", nil))
 }
