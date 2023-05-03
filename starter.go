@@ -4,9 +4,8 @@ import "fmt"
 import "os/exec"
 
 func main() {
-  fmt.Println("Hello, world!")
   err := exec.Command("C:\\Windows\\explorer.exe").Run()
   if err != nil {
-    log.Fatal(err)
+    fmt.Println(err)
   }
 }
