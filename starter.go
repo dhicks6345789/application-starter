@@ -17,8 +17,8 @@ func main() {
   
   // Set the Shell registry value temporarily back to "Explorer.exe" so taht Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and so on.
   HTTPResp, HTTPErr := http.Get("http://localhost:8090/setExplorer")
-  if err != nil {
-    fmt.Println(HTTErr)
+  if HTTPErr != nil {
+    fmt.Println(HTTPErr)
   }
   fmt.Println(HTTPResp)
   
