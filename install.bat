@@ -1,7 +1,7 @@
 @echo off
 
 echo Compiling Go code...
-go build application-starter\starter.go
+go build -ldflags -H=windowsgui application-starter\starter.go
 if not exist starter.exe (
   echo Compile fail - starter.go
   exit /B 1
