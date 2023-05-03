@@ -19,9 +19,8 @@ func main() {
         fmt.Fprint(theResponseWriter, "OK")
       }
 	  }
-  })
-	if strings.HasPrefix(theRequest.URL.Path, "/setStarter") {
-		  fmt.Println("Handle setStarter")
+    if strings.HasPrefix(theRequest.URL.Path, "/setStarter") {
+      fmt.Println("Handle setStarter")
       err := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
       if err != nil {
         fmt.Fprint(theResponseWriter, err)
