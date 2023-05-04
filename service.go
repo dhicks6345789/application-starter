@@ -11,8 +11,16 @@ import (
 func main() {
   http.HandleFunc("/", func (theResponseWriter http.ResponseWriter, theRequest *http.Request) {
     if strings.HasPrefix(theRequest.URL.Path, "/setExplorer") {
-		  fmt.Println("Handle setExplorer")
-      err := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
+      fmt.Println("Handle setExplorer")
+      
+      cmd := exec.Command("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
+      out, err := cmd.CombinedOutput()
+      if err != nil {
+        fmt.Printf("cmd.Run() failed with %s\n", err)
+      }
+      fmt.Printf("Combined out:\n%s\n", string(out))
+      
+      err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
       if err != nil {
         fmt.Fprint(theResponseWriter, err)
       } else {
