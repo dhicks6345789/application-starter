@@ -25,7 +25,7 @@ func main() {
           fmt.Printf("Error opening setPerUser.reg: %s\n", perUserErr)
         }
         perUserText, _ := ioutil.ReadAll(perUserFile)
-        fmt.Print(string(perUserText))
+        perUserString := string(perUserText)
         perUserFile.Close()
         
         for _, user := range strings.Split(string(out), "\n") {
@@ -33,7 +33,7 @@ func main() {
           if len(userSplit) == 2 {
             userID := strings.TrimSpace(userSplit[1])
             if userID != ".DEFAULT" && !strings.HasSuffix(userID, "_Classes") {
-              fmt.Println(userID)
+              fmt.Println(strings.ReplaceAll(perUserString, "HKEY_CURRENT_USER\\", "HKEY_USERS\\" + userID + "\\"))
             }
           }
         }
