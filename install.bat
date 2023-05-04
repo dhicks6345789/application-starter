@@ -15,7 +15,7 @@ goto paramLoop
 
 echo Compiling Go code...
 if "%debug%"==1 (
-  go build -ldflags "-X main.debugOn=true" application-starter\starter.go
+  go build application-starter\starter.go
 ) else (
   go build -ldflags -H=windowsgui "-X main.debugOn=false" application-starter\starter.go
 )
@@ -59,8 +59,10 @@ net start ApplicationStarter
 Set currentDir=%cd%
 regedit /S %currentDir%\application-starter\settings.reg
 
-echo Testing...
-net stop ApplicationStarter
-"C:\Program Files\Application Starter\service.exe"
+if "%debug%"==1 (
+  echo Running Application Starter in debug mode...
+  net stop ApplicationStarter
+  "C:\Program Files\Application Starter\service.exe"
+)
 
 echo Done!
