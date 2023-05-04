@@ -23,11 +23,11 @@ func debug(theMessage string) {
 
 // Convert a map of strings to a string.
 func stringsMapToString(theMap map[string]string) string {
-	result := new(bytes.Buffer)
+	result := ""
 	for key, value := range theMap {
-    fmt.Fprintf(result, "%s=\"%s\"\n", key, value)
+    result = result + key + "=" + value + ","
   }
-  return result.String()
+  return result[:(len(result))-1]
 }
 
 func runAndGetOutput(theName string, theArgs ...string) (string, error) {
