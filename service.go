@@ -16,7 +16,7 @@ func runAndGetOutput(theArgs ...string) string {
   cmd := exec.Command(theArgs...)
   out, err := cmd.CombinedOutput()
   if err != nil {
-    result = "Error running command: " + strings.Join(theCommand, " ") + " - result: " + err.Error()
+    result = "Error running command: " + strings.Join(theArgs, " ") + " - result: " + err.Error()
   } else {
     result = out
   }
