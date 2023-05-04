@@ -92,7 +92,7 @@ func main() {
                 if fileWriteErr != nil {
                   debug("Error writing file: " + pathString)
                 } else {
-                  regEditOut, _ := runAndGetOutput("C:\\Windows\\regedit.exe", pathString)
+                  regEditOut, _ := runAndGetOutput("C:\\Windows\\regedit.exe", "/S", pathString)
                   debug("Ran regedit for path " + pathString + ": " + regEditOut)
                 }
               }
