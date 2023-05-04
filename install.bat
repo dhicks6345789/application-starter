@@ -15,9 +15,9 @@ goto paramLoop
 
 echo Compiling Go code...
 if "%debug%=="1" (
-  go build application-starter\starter.go
+  go build -ldflags "-X main.debug=true" application-starter\starter.go
 ) else (
-  go build -ldflags -H=windowsgui application-starter\starter.go
+  go build -ldflags -H=windowsgui "-X main.debug=false" application-starter\starter.go
 )
 if not exist starter.exe (
   echo Compile fail - starter.go
