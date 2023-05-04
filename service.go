@@ -4,11 +4,10 @@ import (
   "os"
   "fmt"
   "log"
-  "file"
-  "ioutil"
   "strings"
   "os/exec"
   "net/http"
+  "io/ioutil"
 )
 
 func main() {
