@@ -13,6 +13,12 @@ shift
 goto paramLoop
 :paramContinue
 
+echo bananas
+if "%debug%=="hello" (
+  echo grapes
+)
+echo oranges
+
 echo Compiling Go code...
 if "%debug%=="1" (
   echo one
