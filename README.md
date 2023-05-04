@@ -9,7 +9,9 @@ The code and settings contained in this project are intended for administrators 
 
 By default, the user's Desktop folder will be a local (or domain) folder. A simple registry / Active Directory setting can redirect that location to a Google Drive folder ("G:\My Drive\Desktop", for instance), but as Explorer loads before Google Drive the user will get an error message pop-up saying their Desktop folder could not be found.
 
-The solution to this is to make sure that Google Drive loads before Windows Explorer. This can be done by using a Windows registry entry to replace the defined user shell with an application that starts Google Drive, waits for it to be ready, then starts Explorer.
+The solution to this is to make sure that Google Drive loads before Windows Explorer. This can be done by using a Windows registry entry to replace the defined user shell with an application that starts Google Drive, waits for it to be ready, then starts Explorer. This simple-sounding solution is complicated by some quirks of how Windows deals with some of the settings involved.
+
+Replacing the shell application can be done by setting the "Shell" value in HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon. It's easy enough to create a simple executable that starts Google Drive, checks it's ready, then starts Explroer. However, the version of Explorer that starts will be the simple file folder view, not the full desktop - the user will be left with a file browser window instead of a proper desktop. Explorer only starts up as the desktop if that registry key is set to "Explorer.exe". Therefore, the solution is for the shell replacement application to start Google Drive, wait for it to start, set the regiostry key to "Explorer.exe"
 
 Install Chrome
 Install Google Drive Client
