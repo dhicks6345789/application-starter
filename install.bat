@@ -41,6 +41,10 @@ if not exist "C:\Program Files\Application Starter" (
   mkdir "C:\Program Files\Application Starter"
   mkdir "C:\Program Files\Application Starter\Users"
 )
+if %debug%==1 (
+  erase /Y "C:\Program Files\Application Starter\Users\*"
+)
+
 copy /y starter.exe "C:\Program Files\Application Starter"
 erase starter.exe
 copy /y service.exe "C:\Program Files\Application Starter"
