@@ -41,6 +41,8 @@ func main() {
             userID := strings.TrimSpace(userSplit[1])
             if userID != ".DEFAULT" && !strings.HasSuffix(userID, "_Classes") {
               pathString := "C:\\Program Files\\Application Starter\\Users\\" + userID + ".reg"
+              // For each user, if we haven't already written their per-user registry settings, do so now. The user-named cached file acts as an
+              // indicator we've already done the settings for that user.
               if _, pathErr := os.Stat(pathString); errors.Is(pathErr, os.ErrNotExist) {
                 fileWriteErr := os.WriteFile(pathString, []byte(strings.ReplaceAll(perUserString, "HKEY_CURRENT_USER\\", "HKEY_USERS\\" + userID + "\\")), 0644)
                 if fileWriteErr != nil {
