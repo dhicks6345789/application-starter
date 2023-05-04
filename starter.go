@@ -8,11 +8,18 @@ import (
   "net/http"
 )
 
+var debugOn bool
+func debug(theMessage string) {
+  if debugOn {
+    fmt.Println(theMessage)
+  }
+}
+
 func main() {
   // Make sure Google Drive is started.
   err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
   if err != nil {
-    fmt.Println(err)
+    debug(err)
   }
   
   // Set the Shell registry value temporarily back to "Explorer.exe" so that Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and
