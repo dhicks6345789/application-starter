@@ -24,9 +24,9 @@ func main() {
         if perUserErr != nil {
           fmt.Printf("Error opening setPerUser.reg: %s\n", perUserErr)
         }
-        perUserText, _ := string(ioutil.ReadAll(file))
-        fmt.Print(perUserText)
-        perUserFile.close()
+        perUserText, _ := ioutil.ReadAll(perUserFile)
+        fmt.Print(string(perUserText))
+        perUserFile.Close()
         
         for _, user := range strings.Split(string(out), "\n") {
           userSplit := strings.Split(user, "\\")
