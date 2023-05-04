@@ -55,4 +55,8 @@ func main() {
   
   // Set the Shell registry value back to this application.
   callEndpoint("http://localhost:8090/setStarter")
+  
+  if debugOn == "true" {
+    time.Sleep(30 * time.Second)
+  }
 }
