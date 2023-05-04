@@ -1,5 +1,5 @@
 @echo off
-setlocal enabledelayedexpansion
+@setlocal EnableDelayedExpansion 
 
 echo Installing Application Starter...
 
