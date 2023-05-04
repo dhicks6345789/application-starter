@@ -8,9 +8,10 @@ import (
   "net/http"
 )
 
-var debugOn bool
+var debugOn string
+
 func debug(theMessage string) {
-  if debugOn {
+  if debugOn == "true" {
     fmt.Println(theMessage)
   }
 }
