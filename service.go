@@ -40,12 +40,13 @@ func main() {
           if len(userSplit) == 2 {
             userID := strings.TrimSpace(userSplit[1])
             if userID != ".DEFAULT" && !strings.HasSuffix(userID, "_Classes") {
-              if _, pathErr := os.Stat("C:\\Program Files\\Application Starter\\Users\\" + userID); errors.Is(pathErr, os.ErrNotExist) {
-                fileWriteErr := os.WriteFile("C:\\Program Files\\Application Starter\\Users\\" + userID, []byte(strings.ReplaceAll(perUserString, "HKEY_CURRENT_USER\\", "HKEY_USERS\\" + userID + "\\")), 0644)
+              pathString := "C:\\Program Files\\Application Starter\\Users\\" + userID + ".reg"
+              if _, pathErr := os.Stat(pathString); errors.Is(pathErr, os.ErrNotExist) {
+                fileWriteErr := os.WriteFile(pathString, []byte(strings.ReplaceAll(perUserString, "HKEY_CURRENT_USER\\", "HKEY_USERS\\" + userID + "\\")), 0644)
                 if fileWriteErr != nil {
-                  fmt.Printf("Error writing file:: %s\n", "C:\\Program Files\\Application Starter\\Users\\" + userID)
+                  fmt.Printf("Error writing file:: %s\n", pathString)
                 } else {
-                  fmt.Println("regedit C:\\Program Files\\Application Starter\\Users\\" + userID)
+                  _ = exec.Command("C:\\Windows\\regedit.exe", "/S", pathString).Start()
                 }
               }
             }
