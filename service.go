@@ -11,19 +11,39 @@ import (
   "io/ioutil"
 )
 
+// A map to store any arguments passed on the command line.
+var arguments = map[string]string{}
+
 func runAndGetOutput(theName string, theArgs ...string) (string, error) {
   cmd := exec.Command(theName, theArgs...)
   out, err := cmd.CombinedOutput()
   return string(out), err
-  /*if err != nil {
-    return "", err
-  }
-  return string(out), nil*/
 }
 
 /* An application intended to run as a Windows service (installed via NSSM) to handle requests from its companion application to set various Windows registry entries.
 This service should run as the system user so it has permissions to set registry entries. */
 func main() {
+  arguments["debug"] = "false"
+	// Parse any command line arguments.
+  currentArgKey := ""
+  for _, argVal := range os.Args {
+    if strings.HasPrefix(argVal, "--") {
+      if currentArgKey != "" {
+        arguments[strings.ToLower(currentArgKey[2:])] = "true"
+			}
+			currentArgKey = argVal
+		} else {
+			if currentArgKey != "" {
+				arguments[strings.ToLower(currentArgKey[2:])] = argVal
+			}
+			currentArgKey = ""
+		}
+	}
+	if currentArgKey != "" {
+		arguments[strings.ToLower(currentArgKey[2:])] = "true"
+	}
+  fmt.Println(arguments)
+  
   http.HandleFunc("/", func (theResponseWriter http.ResponseWriter, theRequest *http.Request) {
     // Handle the "setExplorer" endpoint - set the user shell to "Explorer.exe", also make sure per-user registry settings are set.
     if strings.HasPrefix(theRequest.URL.Path, "/setExplorer") {
@@ -31,9 +51,6 @@ func main() {
       
       // Get a list of users on this machine.
       out, err := runAndGetOutput("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
-      
-      //cmd := exec.Command("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
-      //out, err := cmd.CombinedOutput()
       if err != nil {
         fmt.Printf("Query to registry failed: %s\n", err)
       } else {
