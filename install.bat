@@ -62,7 +62,6 @@ net start ApplicationStarter
 Set currentDir=%cd%
 regedit /S %currentDir%\application-starter\settings.reg
 
-echo %debug%
 if %debug%==1 (
   echo Running Application Starter in debug mode...
   net stop ApplicationStarter
