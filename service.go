@@ -11,9 +11,9 @@ import (
   "io/ioutil"
 )
 
-func runAndGetOutput(theName string, theArg ...string) string {
+func runAndGetOutput(theArgs ...string) string {
   result := ""
-  cmd := exec.Command(theName, theArg)
+  cmd := exec.Command(theArgs...)
   out, err := cmd.CombinedOutput()
   if err != nil {
     result = "Error running command: " + strings.Join(theCommand, " ") + " - result: " + err.Error()
