@@ -19,7 +19,10 @@ func main() {
         fmt.Printf("Query to registry failed: %s\n", err)
       } else {
         for _, user := range strings.Split(string(out), "\n") {
-          fmt.Println(user)
+          userID := strings.Split(user, "\\")[1]
+          if userId != ".DEFAULT" {
+            fmt.Println(userID)
+          }
         }
         err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
         if err != nil {
