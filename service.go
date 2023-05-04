@@ -22,8 +22,8 @@ func main() {
           userSplit := strings.Split(user, "\\")
           if len(userSplit) == 2 {
             userID := strings.TrimSpace(userSplit[1])
-            if userID != ".DEFAULT" {
-              fmt.Println("AAA" + userID + "BBB")
+            if userID != ".DEFAULT" && !strings.HasSuffix(userID, "_Classes") {
+              fmt.Println(userID)
             }
           }
         }
