@@ -20,7 +20,7 @@ func main() {
       } else {
         for _, user := range strings.Split(string(out), "\n") {
           userID := strings.Split(user, "\\")[1]
-          if userId != ".DEFAULT" {
+          if userID != ".DEFAULT" {
             fmt.Println(userID)
           }
         }
