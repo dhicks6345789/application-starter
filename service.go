@@ -11,9 +11,9 @@ import (
   "io/ioutil"
 )
 
-func runAndGetOutput(theCommand []string) string {
+func runAndGetOutput(theName string, theArg ...string) string {
   result := ""
-  cmd := exec.Command(theCommand)
+  cmd := exec.Command(theName, theArg)
   out, err := cmd.CombinedOutput()
   if err != nil {
     result = "Error running command: " + strings.Join(theCommand, " ") + " - result: " + err.Error()
@@ -32,7 +32,7 @@ func main() {
       fmt.Println("Handle setExplorer")
       
       // Get a list of users on this machine.
-      cmdOut = runAndGetOutput([]string{"C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS"})
+      cmdOut = runAndGetOutput("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
       fmt.Println(cmdOut)
       
       cmd := exec.Command("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
