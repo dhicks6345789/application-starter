@@ -11,6 +11,18 @@ import (
   "io/ioutil"
 )
 
+runAndGetOutput(theCommand string[]) string {
+  result := ""
+  cmd := exec.Command(theCommand)
+  out, err := cmd.CombinedOutput()
+  if err != nil {
+    result = "Error running command: " + strings.Join(theCommand, " ") + " - result: " + err.Error())
+  } else {
+    result = out
+  }
+  return result
+}
+
 /* An application intended to run as a Windows service (installed via NSSM) to handle requests from its companion application to set various Windows registry entries.
 This service should run as the system user so it has permissions to set registry entries. */
 func main() {
@@ -20,6 +32,9 @@ func main() {
       fmt.Println("Handle setExplorer")
       
       // Get a list of users on this machine.
+      cmdOut = runAndGetOutput([]string{"C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS"})
+      fmt.Println(cmdOut)
+      
       cmd := exec.Command("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
       out, err := cmd.CombinedOutput()
       if err != nil {
