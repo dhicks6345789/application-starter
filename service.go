@@ -16,11 +16,12 @@ func runAndGetOutput(theName string, theArgs ...string) string {
   cmd := exec.Command(theName, theArgs...)
   out, err := cmd.CombinedOutput()
   if err != nil {
-    result = "Error running command: " + strings.Join(theArgs, " ") + " - result: " + err.Error()
-  } else {
-    result = string(out)
-  }
-  return result
+    //result = "Error running command: " + strings.Join(theArgs, " ") + " - result: " + err.Error()
+    return "", err
+  } //else {
+    //result = string(out)
+  //}
+  return result, nil
 }
 
 /* An application intended to run as a Windows service (installed via NSSM) to handle requests from its companion application to set various Windows registry entries.
@@ -32,11 +33,10 @@ func main() {
       fmt.Println("Handle setExplorer")
       
       // Get a list of users on this machine.
-      cmdOut := runAndGetOutput("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
-      fmt.Println(cmdOut)
+      out, err := runAndGetOutput("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
       
-      cmd := exec.Command("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
-      out, err := cmd.CombinedOutput()
+      //cmd := exec.Command("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
+      //out, err := cmd.CombinedOutput()
       if err != nil {
         fmt.Printf("Query to registry failed: %s\n", err)
       } else {
