@@ -1,7 +1,7 @@
 @echo off
 echo Installing Application Starter...
 
-set debug="0"
+set debug=0
 
 rem Parse any parameters.
 :paramLoop
@@ -14,13 +14,13 @@ goto paramLoop
 :paramContinue
 
 echo bananas
-if "%debug%=="hello" (
+if "%debug%"==1 (
   echo grapes
 )
 echo oranges
 
 echo Compiling Go code...
-if "%debug%=="1" (
+if "%debug%"==1 (
   echo one
   go build -ldflags "-X main.debugOn=true" application-starter\starter.go
 ) else (
