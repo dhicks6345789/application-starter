@@ -7,7 +7,7 @@ rem Parse any parameters.
 :paramLoop
 if "%1"=="" goto paramContinue
 if "%1"=="--debug" (
-  set debug=B
+  %debug%=B
   echo ### DEBUG MODE SET ###
   echo %debug%
 )
