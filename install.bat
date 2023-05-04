@@ -65,7 +65,7 @@ regedit /S %currentDir%\application-starter\settings.reg
 if %debug%==1 (
   echo Running Application Starter in debug mode...
   net stop ApplicationStarter
-  "C:\Program Files\Application Starter\service.exe"
+  "C:\Program Files\Application Starter\service.exe" -debug
 )
 
 echo Done!
