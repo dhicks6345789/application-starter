@@ -12,16 +12,13 @@ import (
 )
 
 func runAndGetOutput(theName string, theArgs ...string) (string, error) {
-  //result := ""
   cmd := exec.Command(theName, theArgs...)
   out, err := cmd.CombinedOutput()
-  if err != nil {
-    //result = "Error running command: " + strings.Join(theArgs, " ") + " - result: " + err.Error()
+  return string(out), err
+  /*if err != nil {
     return "", err
-  } //else {
-    //result = string(out)
-  //}
-  return string(out), nil
+  }
+  return string(out), nil*/
 }
 
 /* An application intended to run as a Windows service (installed via NSSM) to handle requests from its companion application to set various Windows registry entries.
