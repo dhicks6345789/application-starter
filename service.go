@@ -58,7 +58,6 @@ func main() {
 	if currentArgKey != "" {
 		arguments[strings.ToLower(currentArgKey[2:])] = "true"
 	}
-  debug("Debug On!")
   debug(stringsMapToString(arguments))
   
   http.HandleFunc("/", func (theResponseWriter http.ResponseWriter, theRequest *http.Request) {
@@ -92,9 +91,10 @@ func main() {
               if _, pathErr := os.Stat(pathString); errors.Is(pathErr, os.ErrNotExist) {
                 fileWriteErr := os.WriteFile(pathString, []byte(strings.ReplaceAll(perUserString, "HKEY_CURRENT_USER\\", "HKEY_USERS\\" + userID + "\\")), 0644)
                 if fileWriteErr != nil {
-                  fmt.Printf("Error writing file:: %s\n", pathString)
+                  debug("Error writing file: " + pathString)
                 } else {
-                  _ = exec.Command("C:\\Windows\\regedit.exe", "/S", pathString).Start()
+                  regEditOut, _ := runAndGetOutput("C:\\Windows\\regedit.exe", "/S", pathString)
+                  debug(regEditOut)
                 }
               }
             }
