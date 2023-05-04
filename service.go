@@ -18,7 +18,7 @@ func runAndGetOutput(theArgs ...string) string {
   if err != nil {
     result = "Error running command: " + strings.Join(theArgs, " ") + " - result: " + err.Error()
   } else {
-    result = out
+    result = string(out)
   }
   return result
 }
@@ -32,7 +32,7 @@ func main() {
       fmt.Println("Handle setExplorer")
       
       // Get a list of users on this machine.
-      cmdOut = runAndGetOutput("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
+      cmdOut := runAndGetOutput("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
       fmt.Println(cmdOut)
       
       cmd := exec.Command("C:\\Windows\\System32\\reg.exe", "Query", "HKEY_USERS")
