@@ -21,7 +21,7 @@ func runAndGetOutput(theName string, theArgs ...string) (string, error) {
   } //else {
     //result = string(out)
   //}
-  return out, nil
+  return string(out), nil
 }
 
 /* An application intended to run as a Windows service (installed via NSSM) to handle requests from its companion application to set various Windows registry entries.
