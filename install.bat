@@ -1,7 +1,24 @@
 @echo off
+echo Installing Application Starter...
+
+set debug="0"
+
+rem Parse any parameters.
+:paramLoop
+if "%1"=="" goto paramContinue
+if "%1"=="--debug" (
+  set debug="1"
+)
+shift
+goto paramLoop
+:paramContinue
 
 echo Compiling Go code...
-go build -ldflags -H=windowsgui application-starter\starter.go
+if "%debug%=="1" (
+  go build application-starter\starter.go
+) else (
+  go build -ldflags -H=windowsgui application-starter\starter.go
+)
 if not exist starter.exe (
   echo Compile fail - starter.go
   exit /B 1
