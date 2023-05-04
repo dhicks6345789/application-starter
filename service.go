@@ -11,7 +11,7 @@ import (
   "io/ioutil"
 )
 
-runAndGetOutput(theCommand string[]) string {
+func runAndGetOutput(theCommand string[]) string {
   result := ""
   cmd := exec.Command(theCommand)
   out, err := cmd.CombinedOutput()
