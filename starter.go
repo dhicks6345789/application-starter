@@ -23,7 +23,7 @@ func callEndpoint(theEndpoint string) {
     debug(err.Error())
   }
   body, err := ioutil.ReadAll(resp.Body)
-  debug(body)
+  debug(string(body))
   resp.Body.Close()
 }
 
