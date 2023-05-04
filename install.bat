@@ -19,6 +19,7 @@ net stop ApplicationStarter
 echo Installing...
 if not exist "C:\Program Files\Application Starter" (
   mkdir "C:\Program Files\Application Starter"
+  mkdir "C:\Program Files\Application Starter\Users"
 )
 copy /y starter.exe "C:\Program Files\Application Starter"
 erase starter.exe
@@ -26,6 +27,7 @@ copy /y service.exe "C:\Program Files\Application Starter"
 erase service.exe
 copy /y application-starter\setExplorer.reg "C:\Program Files\Application Starter"
 copy /y application-starter\setStarter.reg "C:\Program Files\Application Starter"
+copy /y application-starter\setPerUser.reg "C:\Program Files\Application Starter"
 
 echo Setting up Windows service...
 application-starter\nssm\2.24\win64\nssm install ApplicationStarter "C:\Program Files\Application Starter\service.exe" > nul 2>&1
