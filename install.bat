@@ -7,7 +7,7 @@ rem Parse any parameters.
 :paramLoop
 if "%1"=="" goto paramContinue
 if "%1"=="--debug" (
-  set debug="1"
+  set debug=1
 )
 shift
 goto paramLoop
