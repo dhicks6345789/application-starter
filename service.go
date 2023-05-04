@@ -14,10 +14,20 @@ import (
 // A map to store any arguments passed on the command line.
 var arguments = map[string]string{}
 
+// If the "--debug" flag was set on the command line, print debug messages.
 func debug(theMessage string) {
   if arguments["debug"] == "true" {
     fmt.Println(theMessage)
   }
+}
+
+// Convert a map of strings to a string.
+func stringsMapToString(theMap map[string]string) string {
+	result := new(bytes.Buffer)
+	for key, value := range theMap {
+    fmt.Fprintf(result, "%s=\"%s\"\n", key, value)
+  }
+  return result.String()
 }
 
 func runAndGetOutput(theName string, theArgs ...string) (string, error) {
@@ -49,7 +59,7 @@ func main() {
 		arguments[strings.ToLower(currentArgKey[2:])] = "true"
 	}
   debug("Debug On!")
-  debug(arguments)
+  debug(stringsMapToString(arguments))
   
   http.HandleFunc("/", func (theResponseWriter http.ResponseWriter, theRequest *http.Request) {
     // Handle the "setExplorer" endpoint - set the user shell to "Explorer.exe", also make sure per-user registry settings are set.
