@@ -6,6 +6,7 @@ import (
   "os"
   "os/exec"
   "net/http"
+  "io/ioutil"
 )
 
 var debugOn string
@@ -21,7 +22,7 @@ func callEndpoint(theEndpoint string) {
   if err != nil {
     debug(err.Error())
   }
-  body, err := ioutil.ReadAll(response.Body)
+  body, err := ioutil.ReadAll(resp.Body)
   debug(body)
   resp.Body.Close()
 }
