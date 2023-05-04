@@ -2,7 +2,7 @@ package main
 
 import (
   "fmt"
-	"log"
+  "log"
   "strings"
   "os/exec"
   "net/http"
@@ -18,7 +18,7 @@ func main() {
       if err != nil {
         fmt.Printf("Query to registry failed: %s\n", err)
       } else {
-        for _, user := range strings.split(string(out), "\n") {
+        for _, user := range strings.Split(string(out), "\n") {
           fmt.Println(user)
         }
         err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
@@ -28,7 +28,7 @@ func main() {
           fmt.Fprint(theResponseWriter, "OK")
         }
       }
-	  }
+    }
     if strings.HasPrefix(theRequest.URL.Path, "/setStarter") {
       fmt.Println("Handle setStarter")
       err := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
@@ -37,7 +37,7 @@ func main() {
       } else {
         fmt.Fprint(theResponseWriter, "OK")
       }
-	  }
+    }
   })
   log.Fatal(http.ListenAndServe("localhost:8090", nil))
 }
