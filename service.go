@@ -18,6 +18,14 @@ func main() {
       if err != nil {
         fmt.Printf("Query to registry failed: %s\n", err)
       } else {
+        perUserFile, perUserErr := os.Open("C:\\Program Files\\Application Starter\\setPerUser.reg")
+        if perUserErr != nil {
+          fmt.Printf("Error opening setPerUser.reg: %s\n", perUserErr)
+        }
+        perUserText, _ := string(ioutil.ReadAll(file))
+        fmt.Print(perUserText)
+        perUserFile.close()
+        
         for _, user := range strings.Split(string(out), "\n") {
           userSplit := strings.Split(user, "\\")
           if len(userSplit) == 2 {
