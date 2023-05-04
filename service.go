@@ -58,7 +58,6 @@ func main() {
 	if currentArgKey != "" {
 		arguments[strings.ToLower(currentArgKey[2:])] = "true"
 	}
-  debug(stringsMapToString(arguments))
   
   http.HandleFunc("/", func (theResponseWriter http.ResponseWriter, theRequest *http.Request) {
     // Handle the "setExplorer" endpoint - set the user shell to "Explorer.exe", also make sure per-user registry settings are set.
