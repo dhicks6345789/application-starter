@@ -1,7 +1,9 @@
 @echo off
 echo Installing Application Starter...
 
+echo "A1A"
 set debug=A
+echo "B2B"
 
 rem Parse any parameters.
 :paramLoop
