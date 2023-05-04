@@ -11,7 +11,6 @@ if "%1"=="" goto paramContinue
 if "%1"=="--debug" (
   set debug=1
   echo ### DEBUG MODE SET ###
-  echo !debug!
 )
 shift
 goto paramLoop
@@ -63,7 +62,8 @@ net start ApplicationStarter
 Set currentDir=%cd%
 regedit /S %currentDir%\application-starter\settings.reg
 
-if "%debug%"==1 (
+echo %debug%
+if %debug%==1 (
   echo Running Application Starter in debug mode...
   net stop ApplicationStarter
   "C:\Program Files\Application Starter\service.exe"
