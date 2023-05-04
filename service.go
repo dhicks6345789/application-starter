@@ -22,7 +22,7 @@ func main() {
           userID := strings.Split(user, "\\")
           if len(userID) == 2 {
             if userID[1] != ".DEFAULT" {
-              fmt.Println(userID[1] + "---")
+              fmt.Println("AAA" + userID[1] + "BBB")
             }
           }
         }
