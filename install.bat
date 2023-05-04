@@ -29,6 +29,7 @@ copy /y application-starter\setStarter.reg "C:\Program Files\Application Starter
 
 echo Setting up Windows service...
 application-starter\nssm\2.24\win64\nssm install ApplicationStarter "C:\Program Files\Application Starter\service.exe" > nul 2>&1
+application-starter\nssm\2.24\win64\nssm set ApplicationStarter Description "A shell replacement for Explorer that starts up Google Drive then Explorer, letting users be able to redirect their desktop folders to Google Drive." > nul 2>&1
 application-starter\nssm\2.24\win64\nssm set ApplicationStarter DisplayName "Application Starter" > nul 2>&1
 application-starter\nssm\2.24\win64\nssm set ApplicationStarter AppNoConsole 1 > nul 2>&1
 application-starter\nssm\2.24\win64\nssm set ApplicationStarter Start SERVICE_AUTO_START > nul 2>&1
