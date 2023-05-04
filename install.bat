@@ -1,15 +1,15 @@
 @echo off
+setlocal enabledelayedexpansion
+
 echo Installing Application Starter...
 
-echo "A1A"
-set debug=A
-echo "B2B"
+set debug=0
 
 rem Parse any parameters.
 :paramLoop
 if "%1"=="" goto paramContinue
 if "%1"=="--debug" (
-  set debug=B
+  set debug=1
   echo ### DEBUG MODE SET ###
   echo %debug%
 )
