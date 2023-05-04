@@ -19,7 +19,7 @@ func main() {
   // Make sure Google Drive is started.
   err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
   if err != nil {
-    debug(err)
+    debug(err.Error())
   }
   
   // Set the Shell registry value temporarily back to "Explorer.exe" so that Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and
