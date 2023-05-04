@@ -14,6 +14,12 @@ import (
 // A map to store any arguments passed on the command line.
 var arguments = map[string]string{}
 
+func debug(theMessage string) {
+  if arguments["debug"] == "true" {
+    fmt.Println(theMessage)
+  }
+}
+
 func runAndGetOutput(theName string, theArgs ...string) (string, error) {
   cmd := exec.Command(theName, theArgs...)
   out, err := cmd.CombinedOutput()
@@ -42,7 +48,8 @@ func main() {
 	if currentArgKey != "" {
 		arguments[strings.ToLower(currentArgKey[2:])] = "true"
 	}
-  fmt.Println(arguments)
+  debug("Debug On!")
+  debug(arguments)
   
   http.HandleFunc("/", func (theResponseWriter http.ResponseWriter, theRequest *http.Request) {
     // Handle the "setExplorer" endpoint - set the user shell to "Explorer.exe", also make sure per-user registry settings are set.
