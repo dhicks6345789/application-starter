@@ -19,10 +19,11 @@ func main() {
         fmt.Printf("Query to registry failed: %s\n", err)
       } else {
         for _, user := range strings.Split(string(out), "\n") {
-          userID := strings.Split(user, "\\")
-          if len(userID) == 2 {
-            if userID[1] != ".DEFAULT" {
-              fmt.Println("AAA" + userID[1] + "BBB")
+          userSplit := strings.Split(user, "\\")
+          if len(userSplit) == 2 {
+            userID := strings.TrimSpace(userSplit[1])
+            if userID != ".DEFAULT" {
+              fmt.Println("AAA" + userID + "BBB")
             }
           }
         }
