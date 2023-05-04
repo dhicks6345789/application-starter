@@ -4,12 +4,8 @@ Windows Registry Editor Version 5.00
 "AutoStartOnLogin"=dword:0
 "DefaultWebBrowser"="C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
 
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders]
-"Desktop"="G:\\My Drive\\Desktop"
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders]
-"Desktop"=hex(2):47,00,3a,00,5c,00,4d,00,79,00,20,00,44,00,72,00,69,00,76,00,\
-  65,00,5c,00,44,00,65,00,73,00,6b,00,74,00,6f,00,70,00,00,00
+; [HKEY_LOCAL_MACHINE\SOFTWARE\Google\GCPW]
+; "domains_allowed_to_login"="domain"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
 ; "AutoAdminLogon"="1"
