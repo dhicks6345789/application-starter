@@ -51,6 +51,7 @@ func main() {
   // Set the Shell registry value temporarily back to "Explorer.exe" so that Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and
   // so on. For this we need to have elevated privalages, so we ask a service running as the system user to do the operation.
   callEndpoint("http://localhost:8090/setExplorer")
+  time.Sleep(10 * time.Second)
   
   // Start Windows Explorer to display the desktop.
   err := exec.Command("C:\\Windows\\explorer.exe").Start()
