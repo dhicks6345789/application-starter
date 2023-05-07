@@ -31,7 +31,7 @@ func callEndpoint(theEndpoint string) {
 func main() {
   // Stop Windows Explorer.
   debug("Stopping Windows Explorer...")
-  err := exec.Command("C:\Windows\System32\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
+  err := exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
   if err != nil {
     debug(err.Error())
   }
