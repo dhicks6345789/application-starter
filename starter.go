@@ -18,12 +18,13 @@ func debug(theMessage string) {
 }
 
 func callEndpoint(theEndpoint string) {
+  debug("Calling endpoint: " + theEndpoint)
   resp, err := http.Get(theEndpoint)
   if err != nil {
     debug(err.Error())
   }
   body, err := ioutil.ReadAll(resp.Body)
-  debug(string(body))
+  debug("Result: " + string(body))
   resp.Body.Close()
 }
 
