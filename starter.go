@@ -28,26 +28,28 @@ func callEndpoint(theEndpoint string) {
 }
 
 func main() {
-  // Make sure Google Drive is started.
-  debug("Starting Google Drive...")
-  err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
-  if err != nil {
-    debug(err.Error())
-  }
-  
-  // Set the Shell registry value temporarily back to "Explorer.exe" so that Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and
-  // so on. For this we need to have elevated privalages, so we ask a service running as the system user to do the operation.
-  callEndpoint("http://localhost:8090/setExplorer")
-  
-  // Wait for Google Drive to be ready.
+  // Check if Google Drive is ready...
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
+  // ...if not, start it...
+  if os.IsNotExist(pathErr) {
+    debug("Starting Google Drive...")
+    err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
+    if err != nil {
+      debug(err.Error())
+    }
+  }
+  // ...and wait for it to be ready.
   for os.IsNotExist(pathErr) && tries < 60 {
     debug("Google Drive not ready yet.")
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive");
     tries = tries + 1
   }
+  
+  // Set the Shell registry value temporarily back to "Explorer.exe" so that Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and
+  // so on. For this we need to have elevated privalages, so we ask a service running as the system user to do the operation.
+  callEndpoint("http://localhost:8090/setExplorer")
   
   // Start Windows Explorer to display the desktop.
   err = exec.Command("C:\\Windows\\explorer.exe").Start()
