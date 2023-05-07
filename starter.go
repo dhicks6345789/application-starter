@@ -29,6 +29,7 @@ func callEndpoint(theEndpoint string) {
 
 func main() {
   // Make sure Google Drive is started.
+  debug("Starting Google Drive...")
   err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
   if err != nil {
     debug(err.Error())
