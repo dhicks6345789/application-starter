@@ -30,17 +30,17 @@ func callEndpoint(theEndpoint string) {
 
 func main() {
   // Stop Windows Explorer.
-  //debug("Stopping Windows Explorer...")
-  //err := exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
-  //if err != nil {
-    //debug(err.Error())
-  //}
-  //if debugOn == "true" {
-    //time.Sleep(10 * time.Second)
-  //}
+  debug("Stopping Windows Explorer...")
+  err := exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
+  if err != nil {
+    debug(err.Error())
+  }
+  if debugOn == "true" {
+    time.Sleep(10 * time.Second)
+  }
   
   // Set user folder redirects.
-  err := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
+  err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
   if err != nil {
     debug(err.Error())
   }
@@ -64,19 +64,11 @@ func main() {
     tries = tries + 1
   }
   
-  // Set the Shell registry value temporarily back to "Explorer.exe" so that Windows Explorer starts in "shell" mode, displaying the desktop, taskbar and
-  // so on. For this we need to have elevated privalages, so we ask a service running as the system user to do the operation.
-  //callEndpoint("http://localhost:8090/setExplorer")
-  //time.Sleep(60 * time.Second)
-  
   // Start Windows Explorer to display the desktop.
-  //err = exec.Command("C:\\Windows\\explorer.exe").Start()
-  //if err != nil {
-    //debug(err.Error())
-  //}
-  
-  //// Set the Shell registry value back to this application.
-  //callEndpoint("http://localhost:8090/setStarter")
+  err = exec.Command("C:\\Windows\\explorer.exe").Start()
+  if err != nil {
+    debug(err.Error())
+  }
   
   if debugOn == "true" {
     time.Sleep(30 * time.Second)
