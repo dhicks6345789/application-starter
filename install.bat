@@ -20,7 +20,7 @@ echo Compiling Go code...
 if "%debug%"==1 (
   go build -ldflags "-X main.debugOn=true" application-starter\starter.go
 ) else (
-  go build -ldflags "-H windowsgui" application-starter\starter.go
+  rem go build -ldflags "-H windowsgui" application-starter\starter.go
 )
 if not exist starter.exe (
   echo Compile fail - starter.go
