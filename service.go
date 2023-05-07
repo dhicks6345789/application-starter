@@ -101,7 +101,7 @@ func main() {
         }
         
         // Set the user shell (for all users) to be "Explorere.exe".
-        err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Start()
+        err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setExplorer.reg").Run()
         
         // Return an "OK" message for the calling application.
         if err != nil {
@@ -113,7 +113,7 @@ func main() {
     }
     if strings.HasPrefix(theRequest.URL.Path, "/setStarter") {
       fmt.Println("Handle setStarter")
-      err := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Start()
+      err := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setStarter.reg").Run()
       if err != nil {
         fmt.Fprint(theResponseWriter, err)
       } else {
