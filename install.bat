@@ -17,8 +17,7 @@ goto paramLoop
 :paramContinue
 
 echo Compiling Go code...
-echo %debug%
-if "%debug%"=="1" (
+if %debug%==1 (
   go build -ldflags "-X main.debugOn=true" application-starter\starter.go
 ) else (
   rem go build -ldflags "-H windowsgui" application-starter\starter.go
