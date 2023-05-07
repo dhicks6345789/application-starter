@@ -14,3 +14,6 @@ Windows Registry Editor Version 5.00
 ; "DefaultPassword"="password"
 ; "Shell"="C:\\Program Files\\Application Starter\\starter.exe"
 "Shell"="Explorer.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+"AppStarter"="C:\\Program Files\\Application Starter\\starter.exe"
