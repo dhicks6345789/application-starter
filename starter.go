@@ -39,6 +39,12 @@ func main() {
     time.Sleep(10 * time.Second)
   }
   
+  // Set user folder redirects.
+  err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
+  if err != nil {
+    debug(err.Error())
+  }
+  
   // Check if Google Drive is ready...
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
