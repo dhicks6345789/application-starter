@@ -52,7 +52,7 @@ func main() {
   callEndpoint("http://localhost:8090/setExplorer")
   
   // Start Windows Explorer to display the desktop.
-  err = exec.Command("C:\\Windows\\explorer.exe").Start()
+  err := exec.Command("C:\\Windows\\explorer.exe").Start()
   if err != nil {
     debug(err.Error())
   }
