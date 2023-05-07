@@ -20,7 +20,7 @@ echo Compiling Go code...
 if %debug%==1 (
   go build -ldflags "-X main.debugOn=true" application-starter\starter.go
 ) else (
-  rem go build -ldflags "-H windowsgui" application-starter\starter.go
+  go build -ldflags "-H windowsgui" application-starter\starter.go
 )
 if not exist starter.exe (
   echo Compile fail - starter.go
@@ -46,6 +46,7 @@ if %debug%==1 (
 )
 
 copy /y starter.exe "C:\Program Files\Application Starter"
+copy /y starter.exe "C:\Users\exams\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Satrtup"
 erase starter.exe
 copy /y service.exe "C:\Program Files\Application Starter"
 erase service.exe
