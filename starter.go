@@ -42,6 +42,7 @@ func main() {
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
   for os.IsNotExist(pathErr) && tries < 60 {
+    debug("Google Drive not ready yet.")
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive");
     tries = tries + 1
