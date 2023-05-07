@@ -54,7 +54,7 @@ func main() {
   //time.Sleep(60 * time.Second)
   
   // Start Windows Explorer to display the desktop.
-  err := exec.Command("taskkill", "/im", "explorer.exe").Run()
+  err := exec.Command("taskkill", "/f", "/im", "explorer.exe").Run()
   if err != nil {
     debug(err.Error())
   }
