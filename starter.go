@@ -43,7 +43,7 @@ func main() {
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
   // ...if not, start it...
-  if os.IsNotExist(pathErr) {
+  if pathErr != nil {
     debug("Starting Google Drive...")
     err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
     if err != nil {
@@ -51,7 +51,7 @@ func main() {
     }
   }
   // ...and wait for it to be ready.
-  for os.IsNotExist(pathErr) && tries < 60 {
+  for pathErr != nil && tries < 60 {
     debug("Google Drive not ready yet.")
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive");
