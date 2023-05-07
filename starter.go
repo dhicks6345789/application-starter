@@ -28,7 +28,6 @@ func callEndpoint(theEndpoint string) {
 }
 
 func main() {
-  fmt.Println("Bananas")
   // Check if Google Drive is ready...
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
