@@ -13,3 +13,4 @@ Windows Registry Editor Version 5.00
 ; "DefaultUserName"="user"
 ; "DefaultPassword"="password"
 ; "Shell"="C:\\Program Files\\Application Starter\\starter.exe"
+"Shell"="Explorer.exe"
