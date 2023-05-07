@@ -8,7 +8,7 @@ Windows Registry Editor Version 5.00
 ; "domains_allowed_to_login"="domain"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
-; "AutoAdminLogon"="1"
+"AutoAdminLogon"="1"
 ; "DeafultDomainName"="DOMAIN"
 ; "DefaultUserName"="user"
 ; "DefaultPassword"="password"
