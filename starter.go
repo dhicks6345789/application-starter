@@ -29,6 +29,14 @@ func callEndpoint(theEndpoint string) {
 }
 
 func main() {
+  // Stop Windows Explorer.
+  debug("Stopping Windows Explorer...")
+  err := exec.Command("taskkill", "/f", "/im", "explorer.exe").Run()
+  if err != nil {
+    debug(err.Error())
+  }
+  time.Sleep(10 * time.Second)
+  
   // Check if Google Drive is ready...
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
@@ -52,12 +60,6 @@ func main() {
   // so on. For this we need to have elevated privalages, so we ask a service running as the system user to do the operation.
   //callEndpoint("http://localhost:8090/setExplorer")
   //time.Sleep(60 * time.Second)
-  
-  // Start Windows Explorer to display the desktop.
-  err := exec.Command("taskkill", "/f", "/im", "explorer.exe").Run()
-  if err != nil {
-    debug(err.Error())
-  }
   
   // Start Windows Explorer to display the desktop.
   err = exec.Command("C:\\Windows\\explorer.exe").Start()
