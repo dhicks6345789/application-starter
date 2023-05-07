@@ -30,14 +30,14 @@ func callEndpoint(theEndpoint string) {
 
 func main() {
   // Stop Windows Explorer.
-  debug("Stopping Windows Explorer...")
-  err := exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
-  if err != nil {
-    debug(err.Error())
-  }
-  if debugOn == "true" {
-    time.Sleep(10 * time.Second)
-  }
+  //debug("Stopping Windows Explorer...")
+  //err := exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
+  //if err != nil {
+    //debug(err.Error())
+  //}
+  //if debugOn == "true" {
+    //time.Sleep(10 * time.Second)
+  //}
   
   // Set user folder redirects.
   err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
@@ -70,10 +70,10 @@ func main() {
   //time.Sleep(60 * time.Second)
   
   // Start Windows Explorer to display the desktop.
-  err = exec.Command("C:\\Windows\\explorer.exe").Start()
-  if err != nil {
-    debug(err.Error())
-  }
+  //err = exec.Command("C:\\Windows\\explorer.exe").Start()
+  //if err != nil {
+    //debug(err.Error())
+  //}
   
   //// Set the Shell registry value back to this application.
   //callEndpoint("http://localhost:8090/setStarter")
