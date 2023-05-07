@@ -40,7 +40,7 @@ func main() {
   //}
   
   // Set user folder redirects.
-  err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
+  err := exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
   if err != nil {
     debug(err.Error())
   }
