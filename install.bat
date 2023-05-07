@@ -46,7 +46,7 @@ if %debug%==1 (
 )
 
 copy /y starter.exe "C:\Program Files\Application Starter"
-copy /y starter.exe "C:\Users\exams\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Start-up\starter.exe"
+copy /y starter.exe "C:\Users\exams\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\starter.exe"
 erase starter.exe
 copy /y service.exe "C:\Program Files\Application Starter"
 erase service.exe
