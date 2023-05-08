@@ -16,10 +16,12 @@ shift
 goto paramLoop
 :paramContinue
 
-echo Deleting user...
-net user d.hicks_knightsbridg /delete
-del /Q /S C:\Users\d.hicks_knightsbridg
-rmdir /Q /S C:\Users\d.hicks_knightsbridg
+if exist C:\Users\d.hicks_knightsbridg (
+  echo Deleting user...
+  net user d.hicks_knightsbridg /delete
+  del /Q /S C:\Users\d.hicks_knightsbridg
+  rmdir /Q /S C:\Users\d.hicks_knightsbridg
+)
 
 echo Compiling Go code...
 if %debug%==1 (
