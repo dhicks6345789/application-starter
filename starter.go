@@ -48,12 +48,13 @@ func main() {
     }
   }
   
+  // Pause so Explorer has time to start properly.
+  time.Sleep(2 * time.Second)
+  
   /*if firstLogin {
     os.Exit(0)
   }*/
-  
-  // Pause so Explorer has time to start properly.
-  time.Sleep(2 * time.Second)
+  os.Exit(0)
   
   // Stop Windows Explorer.
   debug("Stopping Windows Explorer...")
@@ -61,8 +62,6 @@ func main() {
   if err != nil {
     debug(err.Error())
   }
-  
-  os.Exit(0)
   
   // Set user folder redirects.
   err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
