@@ -35,7 +35,6 @@ func callEndpoint(theEndpoint string) {
 }
 
 func main() {
-  os.Exit(0)
   // If we're running the first time a user has logged in, the user's defined user profile folder won't actually exist.
   firstLogin := false
   userHome, err := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
@@ -49,9 +48,9 @@ func main() {
     }
   }
   
-  if firstLogin {
+  /*if firstLogin {
     os.Exit(0)
-  }
+  }*/
   
   // Pause so Explorer has time to start properly.
   time.Sleep(2 * time.Second)
@@ -62,6 +61,8 @@ func main() {
   if err != nil {
     debug(err.Error())
   }
+  
+  os.Exit(0)
   
   // Set user folder redirects.
   err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
