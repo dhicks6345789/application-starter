@@ -18,5 +18,5 @@ Windows Registry Editor Version 5.00
 ; "Userinit"="C:\\Program Files\\Application Starter\\starter.exe"
 "Userinit"="C:\\Windows\\system32\\userinit.exe"
 
-; [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
 "AppStarter"="C:\\Program Files\\Application Starter\\starter.exe"
