@@ -84,7 +84,7 @@ func main() {
     }
   }
   // ...and wait for it to be ready.
-  for pathErr != nil && tries < 60 {
+  for pathErr != nil && ((tries < 60 && firstLogin == false) || firstLogin == true) {
     debug("Google Drive not ready yet.")
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive");
