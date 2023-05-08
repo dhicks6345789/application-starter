@@ -35,12 +35,14 @@ func callEndpoint(theEndpoint string) {
 }
 
 func main() {
+  firstLogin := false
   userHome, err := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
   if err != nil {
     debug(err.Error())
   }
   _, pathErr := os.Stat(userHome);
   if pathErr != nil {
+    firstLogin = true
     // Start the standard Windows userinit process.
     err = exec.Command("C:\\Windows\\system32\\userinit.exe").Start()
     if err != nil {
@@ -90,13 +92,11 @@ func main() {
     //debug(err.Error())
   //}
   
-  // Start the standard Windows userinit process.
-  err = exec.Command("C:\\Windows\\system32\\userinit.exe").Start()
-  if err != nil {
-    debug(err.Error())
-  }
-  
-  if debugOn == "true" {
-    time.Sleep(30 * time.Second)
+  if firstLogin == false {
+    // Start the standard Windows userinit process.
+    err = exec.Command("C:\\Windows\\system32\\userinit.exe").Start()
+    if err != nil {
+      debug(err.Error())
+    }
   }
 }
