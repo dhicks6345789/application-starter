@@ -43,6 +43,7 @@ func main() {
   } else {
     debug(userHome)
     _, pathErr := os.Stat(userHome);
+    fmt.Println(pathErr)
     if pathErr != nil {
       firstLogin = true
     }
