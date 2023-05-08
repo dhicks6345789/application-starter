@@ -16,6 +16,11 @@ shift
 goto paramLoop
 :paramContinue
 
+echo Deleting user...
+net user d.hicks_knightsbridg /delete
+del /Q /S C:\Users\d.hicks_knightsbridg
+rmdir /Q /S C:\Users\d.hicks_knightsbridg
+
 echo Compiling Go code...
 if %debug%==1 (
   go build -ldflags "-X main.debugOn=true" application-starter\starter.go
