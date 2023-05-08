@@ -35,6 +35,7 @@ func callEndpoint(theEndpoint string) {
 }
 
 func main() {
+  os.Exit(0)
   // If we're running the first time a user has logged in, the user's defined user profile folder won't actually exist.
   firstLogin := false
   userHome, err := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
