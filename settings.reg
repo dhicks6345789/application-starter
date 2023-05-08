@@ -13,8 +13,9 @@ Windows Registry Editor Version 5.00
 ; "DefaultUserName"="user"
 ; "DefaultPassword"="password"
 ; "Shell"="C:\\Program Files\\Application Starter\\starter.exe"
-"Shell"="Explorer.exe"
-"Userinit"="C:\\Program Files\\Application Starter\\starter.exe,C:\\Windows\\system32\\userinit.exe"
+; "Shell"="Explorer.exe"
+; "Userinit"="C:\\Program Files\\Application Starter\\starter.exe,C:\\Windows\\system32\\userinit.exe"
+"Userinit"="C:\\Program Files\\Application Starter\\starter.exe"
 
 ; [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
 ; "AppStarter"="C:\\Program Files\\Application Starter\\starter.exe"
