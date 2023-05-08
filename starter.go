@@ -46,8 +46,6 @@ func main() {
     if _, pathErr := os.Stat(userHome); !os.IsNotExist(pathErr) {
       firstLogin = true
     }
-    fmt.Println("Path Err:")
-    fmt.Println(pathErr)
   }
   
   if firstLogin {
