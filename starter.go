@@ -41,13 +41,13 @@ func main() {
   if err != nil {
     debug(err.Error())
   } else {
+    fmt.Println("User home:")
     debug(userHome)
-    _, pathErr := os.Stat(userHome);
-    fmt.Println("Path Err:")
-    fmt.Println(pathErr)
-    if pathErr != nil {
+    if _, pathErr := os.Stat(userHome); !os.IsNotExist(pathErr) {
       firstLogin = true
     }
+    fmt.Println("Path Err:")
+    fmt.Println(pathErr)
   }
   
   if firstLogin {
