@@ -41,20 +41,22 @@ func main() {
   userHome, err := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
   if err != nil {
     debug(err.Error())
+  } else {
+    _, pathErr := os.Stat(userHome);
+    if pathErr != nil {
+      firstLogin = true
+    }
   }
   
-  // ...and if this /is/ the first login for a user, run the userinit process.
-  _, pathErr := os.Stat(userHome);
-  if pathErr != nil {
-    firstLogin = true
-    // Start the standard Windows userinit process.
-    err = exec.Command("C:\\Windows\\system32\\userinit.exe").Start()
-    if err != nil {
-      debug(err.Error())
-    }
-    // Pause so Explorer has time to start properly.
-    time.Sleep(4 * time.Second)
+  /* 
+  // Start the standard Windows userinit process.
+  err = exec.Command("C:\\Windows\\system32\\userinit.exe").Start()
+  if err != nil {
+    debug(err.Error())
   }
+  // Pause so Explorer has time to start properly.
+  time.Sleep(4 * time.Second)
+  */
   
   // Stop Windows Explorer.
   debug("Stopping Windows Explorer...")
@@ -81,7 +83,7 @@ func main() {
     }
   }
   // ...and wait for it to be ready.
-  for pathErr != nil && ((tries < 60 && firstLogin == false) || firstLogin == true) {
+  for pathErr != nil && tries < 60 && firstLogin == false {
     debug("Google Drive not ready yet.")
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive");
