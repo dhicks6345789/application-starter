@@ -17,6 +17,12 @@ func debug(theMessage string) {
   }
 }
 
+func runAndGetOutput(theName string, theArgs ...string) (string, error) {
+  cmd := exec.Command(theName, theArgs...)
+  out, err := cmd.CombinedOutput()
+  return string(out), err
+}
+
 func callEndpoint(theEndpoint string) {
   debug("Calling endpoint: " + theEndpoint)
   resp, err := http.Get(theEndpoint)
@@ -29,9 +35,23 @@ func callEndpoint(theEndpoint string) {
 }
 
 func main() {
+  userHome, err := runAndGetOutput("C:\Windows\System32\cmd.exe", "/C", "echo", "%userprofile%")
+  if err != nil {
+    debug(err.Error())
+  }
+  _, pathErr := os.Stat(userHome);
+  if pathErr != nil {
+    // Start the standard Windows userinit process.
+    err = exec.Command("C:\\Windows\\system32\\userinit.exe").Start()
+    if err != nil {
+      debug(err.Error())
+    }
+    time.Sleep(4 * time.Second)
+  }
+  
   // Stop Windows Explorer.
   debug("Stopping Windows Explorer...")
-  err := exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
+  err = exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
   if err != nil {
     debug(err.Error())
   }
@@ -47,7 +67,7 @@ func main() {
   
   // Check if Google Drive is ready...
   tries := 1
-  _, pathErr := os.Stat("G:\\My Drive");
+  _, pathErr = os.Stat("G:\\My Drive");
   // ...if not, start it...
   if pathErr != nil {
     debug("Starting Google Drive...")
