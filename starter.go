@@ -65,7 +65,13 @@ func main() {
   }
   
   // Start Windows Explorer to display the desktop.
-  err = exec.Command("C:\\Windows\\explorer.exe").Start()
+  //err = exec.Command("C:\\Windows\\explorer.exe").Start()
+  //if err != nil {
+    //debug(err.Error())
+  //}
+  
+  // Start the standard Windows userinit process.
+  err = exec.Command("C:\\Windows\\system32\\userinit.exe").Start()
   if err != nil {
     debug(err.Error())
   }
