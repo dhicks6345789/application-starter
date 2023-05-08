@@ -88,7 +88,7 @@ func main() {
     tries = tries + 1
   }
   
-  if firstLogin {
+  /*if firstLogin {
     err = exec.Command("C:\\Windows\\Explorer.exe").Start()
     if err != nil {
       debug(err.Error())
@@ -99,5 +99,5 @@ func main() {
     if err != nil {
       debug(err.Error())
     }
-  }
+  }*/
 }
