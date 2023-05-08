@@ -53,10 +53,10 @@ func main() {
   err = exec.Command("C:\\Windows\\system32\\userinit.exe").Start()
   if err != nil {
     debug(err.Error())
-  }
+  }*/
+  
   // Pause so Explorer has time to start properly.
-  time.Sleep(4 * time.Second)
-  */
+  time.Sleep(2 * time.Second)
   
   // Stop Windows Explorer.
   debug("Stopping Windows Explorer...")
@@ -102,4 +102,10 @@ func main() {
       debug(err.Error())
     }
   }*/
+  
+  // Re-start Windows Explorer.
+  err = exec.Command("C:\\Windows\\Explorer.exe").Start()
+  if err != nil {
+    debug(err.Error())
+  }
 }
