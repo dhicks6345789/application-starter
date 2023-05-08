@@ -73,7 +73,7 @@ func main() {
   
   // Check if Google Drive is ready...
   tries := 1
-  _, pathErr = os.Stat("G:\\My Drive");
+  _, pathErr := os.Stat("G:\\My Drive");
   // ...if not, start it...
   if pathErr != nil {
     debug("Starting Google Drive...")
