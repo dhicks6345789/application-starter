@@ -35,11 +35,15 @@ func callEndpoint(theEndpoint string) {
 }
 
 func main() {
+  // If we're running the first time a user has logged in, the user's defined user profile folder won't actually exist.
+  // First, check for that...
   firstLogin := false
   userHome, err := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
   if err != nil {
     debug(err.Error())
   }
+  
+  // ...and if this /is/ the first login for a user, run the userinit process.
   _, pathErr := os.Stat(userHome);
   if pathErr != nil {
     firstLogin = true
@@ -48,6 +52,7 @@ func main() {
     if err != nil {
       debug(err.Error())
     }
+    // Pause so Explorer has time to start properly.
     time.Sleep(4 * time.Second)
   }
   
@@ -86,13 +91,12 @@ func main() {
     tries = tries + 1
   }
   
-  // Start Windows Explorer to display the desktop.
-  //err = exec.Command("C:\\Windows\\explorer.exe").Start()
-  //if err != nil {
-    //debug(err.Error())
-  //}
-  
-  if firstLogin == false {
+  if firstLogin {
+    err = exec.Command("C:\\Windows\\Explorer.exe").Start()
+    if err != nil {
+      debug(err.Error())
+    }
+  } else {
     // Start the standard Windows userinit process.
     err = exec.Command("C:\\Windows\\system32\\userinit.exe").Start()
     if err != nil {
