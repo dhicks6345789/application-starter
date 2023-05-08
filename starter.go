@@ -62,9 +62,6 @@ func main() {
   if err != nil {
     debug(err.Error())
   }
-  if debugOn == "true" {
-    time.Sleep(10 * time.Second)
-  }
   
   // Set user folder redirects.
   err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
