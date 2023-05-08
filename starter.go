@@ -35,7 +35,7 @@ func callEndpoint(theEndpoint string) {
 }
 
 func main() {
-  userHome, err := runAndGetOutput("C:\Windows\System32\cmd.exe", "/C", "echo", "%userprofile%")
+  userHome, err := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
   if err != nil {
     debug(err.Error())
   }
