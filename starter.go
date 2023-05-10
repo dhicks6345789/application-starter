@@ -50,13 +50,19 @@ func main() {
   // Is this the first time this application has run for this user?
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     debug("This is user first login.")
-    time.Sleep(10 * time.Second)
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
+    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
     os.Exit(0)
   }
+  firstRun := false
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
     debug("This is a valid run.")
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
+    if _, firstRunErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt"); !os.IsNotExist(firstRunErr) {
+      firstRun = true
+      debug("This is a valid first run.")
+      _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt 2>&1")
+    }
   } else {
     debug("This is not a valid run.")
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
@@ -106,5 +112,10 @@ func main() {
   err := exec.Command("C:\\Windows\\Explorer.exe").Start()
   if err != nil {
     debug(err.Error())
+  }
+  
+  if firstRun {
+    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
+    time.Sleep(30 * time.Second)
   }
 }
