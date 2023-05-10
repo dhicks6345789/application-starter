@@ -56,7 +56,7 @@ func main() {
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     debug("This is user first login.")
     //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
-    _ := os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
+    _ = os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
     //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
     writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
     os.Exit(0)
@@ -65,15 +65,18 @@ func main() {
   firstRun := false
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
     debug("This is a valid run.")
-    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
+    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
+    writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
     if _, firstRunErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt"); !os.IsNotExist(firstRunErr) {
       firstRun = true
       debug("This is a valid first run.")
-      _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt 2>&1")
+      //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt 2>&1")
+      _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
     }
   } else {
     debug("This is not a valid run.")
-    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
+    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
+    _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
     os.Exit(0)
   }
   
@@ -81,10 +84,10 @@ func main() {
   time.Sleep(2 * time.Second)
   
   // Stop Windows Explorer.
-  _ = runAndGetOutput("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe")
+  _ = exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
   
   // Set user folder redirects.
-  _ = runAndGetOutput("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg")
+  _ = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
   
   // Check if Google Drive is ready by checking for G:\My Drive...
   tries := 1
@@ -109,7 +112,8 @@ func main() {
   _, pathErr = os.Stat("G:\\My Drive\\Desktop");
   for pathErr != nil && tries < 60 {
     debug("Desktop folder not ready yet.")
-    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir", "G:\\My Drive\\Desktop")
+    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir", "G:\\My Drive\\Desktop")
+    _ = os.Mkdir("G:\\My Drive\\Desktop", 0750)
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive\\Desktop");
     tries = tries + 1
@@ -122,6 +126,7 @@ func main() {
   }
   
   if firstRun {
-    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
+    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
+    _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
   }
 }
