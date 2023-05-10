@@ -51,7 +51,7 @@ func main() {
         debug(mkdirErr.Error())
       }
       if debugOn == "true" {
-        time.Sleep(30 time.Second)
+        time.Sleep(30 * time.Second)
       }
       os.Exit(0)
     }
@@ -62,7 +62,7 @@ func main() {
         debug(mkdirErr.Error())
       }
       if debugOn == "true" {
-        time.Sleep(30 time.Second)
+        time.Sleep(30 * time.Second)
       }
     } else {
       debug("This is not a valid run.")
@@ -71,7 +71,7 @@ func main() {
         debug(mkdirErr.Error())
       }
       if debugOn == "true" {
-        time.Sleep(30 time.Second)
+        time.Sleep(30 * time.Second)
       }
       os.Exit(0)
     }
