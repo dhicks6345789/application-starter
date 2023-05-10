@@ -52,6 +52,20 @@ func main() {
       }
       os.Exit(0)
     }
+    if _, pathErr = os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
+      debug("This is a valid run.")
+      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", ">", "%userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
+      if mkdirErr != nil {
+        debug(mkdirErr.Error())
+      }
+    } else {
+      debug("This is not a valid run.")
+      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "erase", "/y", "%userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
+      if mkdirErr != nil {
+        debug(mkdirErr.Error())
+      }
+      os.Exit(0)
+    }
   }
   
   // Pause so Explorer has time to start properly.
