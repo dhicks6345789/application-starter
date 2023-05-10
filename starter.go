@@ -6,8 +6,6 @@ import (
   "strings"
   "os"
   "os/exec"
-  "net/http"
-  "io/ioutil"
 )
 
 var debugOn string
