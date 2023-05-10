@@ -42,7 +42,7 @@ func main() {
   if err != nil {
     debug(err.Error())
   } else {
-    userHome = strings.Trim(userHome)
+    userHome = strings.TrimSpace(userHome)
     debug("User Home: " + userHome + "AAA")
     // if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter")
