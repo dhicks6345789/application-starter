@@ -79,7 +79,7 @@ func main() {
   // ...if not, start it...
   if pathErr != nil {
     debug("Starting Google Drive...")
-    out, err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
+    err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
     if err != nil {
       debug(err.Error())
     }
@@ -103,7 +103,7 @@ func main() {
   }
   
   // Re-start Windows Explorer.
-  out, err := exec.Command("C:\\Windows\\Explorer.exe").Start()
+  err := exec.Command("C:\\Windows\\Explorer.exe").Start()
   if err != nil {
     debug(err.Error())
   }
