@@ -58,6 +58,11 @@ func main() {
   time.Sleep(2 * time.Second)
   
   if firstLogin {
+    // Set user folder redirects.
+    err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setFirstLogin.reg").Run()
+    if err != nil {
+      debug(err.Error())
+    }
     os.Exit(0)
   }
   
@@ -74,7 +79,7 @@ func main() {
     debug(err.Error())
   }
   
-  // Check if Google Drive is ready...
+  // Check if Google Drive is ready by checking for G:\My Drive...
   tries := 1
   _, pathErr := os.Stat("G:\\My Drive");
   // ...if not, start it...
@@ -85,11 +90,24 @@ func main() {
       debug(err.Error())
     }
   }
-  // ...and wait for it to be ready.
-  for pathErr != nil && tries < 60 && firstLogin == false {
+  // ...and wait for it to be ready...
+  for pathErr != nil && tries < 60 {
     debug("Google Drive not ready yet.")
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive");
+    tries = tries + 1
+  }
+  // ...and wait for G:\My Drive\Desktop to be ready...
+  tries = 1
+  _, pathErr = os.Stat("G:\\My Drive\\Desktop");
+  for pathErr != nil && tries < 60 {
+    debug("Desktop folder not ready yet.")
+    _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir", "G:\\My Drive\\Desktop")
+    if mkdirErr != nil {
+      debug(mkdirErr.Error())
+    }
+    time.Sleep(1 * time.Second)
+    _, pathErr = os.Stat("G:\\My Drive\\Desktop");
     tries = tries + 1
   }
   
