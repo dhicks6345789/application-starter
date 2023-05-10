@@ -90,7 +90,7 @@ func main() {
   _ = exec.Command("C:\\Windows\\Explorer.exe").Start()
   
   time.Sleep(10 * time.Second)
-  _ = exec.Command("C:\\Windows\\Explorer.exe","C:\\Users\\exams\\AppData\Local\\ApplicationStarter").Start()
+  _ = exec.Command("C:\\Windows\\Explorer.exe","C:\\Users\\exams\\AppData\\Local\\ApplicationStarter").Start()
   
   if firstRun {
     _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
