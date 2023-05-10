@@ -58,12 +58,12 @@ func main() {
   // Stop Windows Explorer.
   _ = runAndGetOutput("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe")
   
-  //firstRun := false
+  firstRun := false
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
     debug("This is a valid run.")
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
     if _, firstRunErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt"); !os.IsNotExist(firstRunErr) {
-      //firstRun = true
+      firstRun = true
       debug("This is a valid first run.")
       _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt 2>&1")
     }
@@ -74,7 +74,7 @@ func main() {
   }
   
   // Pause so Explorer has time to start properly.
-  //time.Sleep(6 * time.Second)
+  time.Sleep(2 * time.Second)
   
   // Set user folder redirects.
   _ = runAndGetOutput("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg")
@@ -114,7 +114,7 @@ func main() {
     debug(err.Error())
   }
   
-  /*if firstRun {
+  if firstRun {
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
-  }*/
+  }
 }
