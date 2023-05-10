@@ -52,7 +52,7 @@ func main() {
       }
       os.Exit(0)
     }
-    if _, pathErr = os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
+    if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
       debug("This is a valid run.")
       _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", ">", "%userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
       if mkdirErr != nil {
