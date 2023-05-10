@@ -34,19 +34,14 @@ if not exist "C:\Program Files\Application Starter" (
 
 echo Compiling Go code...
 go build -ldflags "-X main.debugOn=true" application-starter\starter.go
-if not exist starter.exe (
-  echo Compile fail - starter.go
-  exit /B 1
-)
-copy /y starter.exe "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\starterWinGUI.exe"
-erase starter.exe
-
-go build -ldflags "-H windowsgui" application-starter\starter.go
+rem go build -ldflags "-H windowsgui" application-starter\starter.go
 if not exist starter.exe (
   echo Compile fail - starter.go
   exit /B 1
 )
 copy /y starter.exe "C:\Program Files\Application Starter"
+erase "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\starterWinGUI.exe"
+copy /y starter.exe "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp"
 erase starter.exe
 
 rem go build application-starter\service.go
