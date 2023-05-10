@@ -41,7 +41,7 @@ func main() {
   if err != nil {
     debug(err.Error())
   } else {
-    debug("User Home: " + userHome)
+    debug("User Home: " + userHome + "AAA")
     // if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter")
     debug(pathErr.Error())
