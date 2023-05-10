@@ -68,10 +68,10 @@ func main() {
   
   // Stop Windows Explorer.
   debug("Stopping Windows Explorer...")
-  _ = runAndGetOutput("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
+  _ = runAndGetOutput("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe")
   
   // Set user folder redirects.
-  _ = runAndGetOutput("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
+  _ = runAndGetOutput("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg")
   
   // Check if Google Drive is ready by checking for G:\My Drive...
   tries := 1
@@ -79,7 +79,10 @@ func main() {
   // ...if not, start it...
   if pathErr != nil {
     debug("Starting Google Drive...")
-    _ = runAndGetOutput("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
+    out, err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
+    if err != nil {
+      debug(err.Error())
+    }
   }
   // ...and wait for it to be ready...
   for pathErr != nil && tries < 60 {
@@ -100,5 +103,8 @@ func main() {
   }
   
   // Re-start Windows Explorer.
-  _ = runAndGetOutput("C:\\Windows\\Explorer.exe").Start()
+  out, err := exec.Command("C:\\Windows\\Explorer.exe").Start()
+  if err != nil {
+    debug(err.Error())
+  }
 }
