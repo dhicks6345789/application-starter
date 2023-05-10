@@ -23,6 +23,10 @@ if exist C:\Users\d.hicks_knightsbridg (
   rmdir /Q /S C:\Users\d.hicks_knightsbridg
 )
 
+if exist %userprofile%\AppData\Local\ApplicationStarter\starter.txt (
+  del /Q /F %userprofile%\AppData\Local\ApplicationStarter\starter.txt 2>&1
+)
+
 echo Compiling Go code...
 if %debug%==1 (
   go build -ldflags "-X main.debugOn=true" application-starter\starter.go
