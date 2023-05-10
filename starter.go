@@ -18,10 +18,14 @@ func debug(theMessage string) {
   }
 }
 
-func runAndGetOutput(theName string, theArgs ...string) (string, error) {
+func runAndGetOutput(theName string, theArgs ...string) string {
   cmd := exec.Command(theName, theArgs...)
   out, err := cmd.CombinedOutput()
-  return string(out), err
+  if err != nil {
+    debug("Running command " + theName " - errror: " + err.Error())
+    return nil
+  }
+  return string(out)
 }
 
 func callEndpoint(theEndpoint string) {
@@ -37,35 +41,26 @@ func callEndpoint(theEndpoint string) {
 
 func main() {
   // Get the user's defined profile folder.
-  userHome, err := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
-  if err != nil {
-    debug(err.Error())
+  userHome := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
+  if userHome == nil {
+    os.Exit(0)
+  }
+  userHome = strings.TrimSpace(userHome)
+  debug("User Home: " + userHome)
+  // Is this the first time this application has run for this user?
+  if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
+    debug("This is user first login.")
+    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
+    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
+    os.Exit(0)
+  }
+  if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
+    debug("This is a valid run.")
+    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
   } else {
-    userHome = strings.TrimSpace(userHome)
-    debug("User Home: " + userHome)
-    // Is this the first time this application has run for this user?
-    if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
-      debug("This is user first login.")
-      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
-      if mkdirErr != nil {
-        debug(mkdirErr.Error())
-      }
-      os.Exit(0)
-    }
-    if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
-      debug("This is a valid run.")
-      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
-      if mkdirErr != nil {
-        debug(mkdirErr.Error())
-      }
-    } else {
-      debug("This is not a valid run.")
-      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
-      if mkdirErr != nil {
-        debug(mkdirErr.Error())
-      }
-      os.Exit(0)
-    }
+    debug("This is not a valid run.")
+    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
+    os.Exit(0)
   }
   
   // Pause so Explorer has time to start properly.
@@ -107,10 +102,7 @@ func main() {
   _, pathErr = os.Stat("G:\\My Drive\\Desktop");
   for pathErr != nil && tries < 60 {
     debug("Desktop folder not ready yet.")
-    _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir", "G:\\My Drive\\Desktop")
-    if mkdirErr != nil {
-      debug(mkdirErr.Error())
-    }
+    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir", "G:\\My Drive\\Desktop")
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive\\Desktop");
     tries = tries + 1
