@@ -22,7 +22,7 @@ func runAndGetOutput(theName string, theArgs ...string) string {
   cmd := exec.Command(theName, theArgs...)
   out, err := cmd.CombinedOutput()
   if err != nil {
-    debug("Running command " + theName " - errror: " + err.Error())
+    debug("Running command " + theName + " - errror: " + err.Error())
     return nil
   }
   return string(out)
