@@ -18,16 +18,6 @@ func debug(theMessage string) {
   }
 }
 
-func runAndGetOutput(theName string, theArgs ...string) string {
-  cmd := exec.Command(theName, theArgs...)
-  out, err := cmd.CombinedOutput()
-  if err != nil {
-    debug("Running command " + theName + " - errror: " + err.Error())
-    return ""
-  }
-  return string(out)
-}
-
 func callEndpoint(theEndpoint string) {
   debug("Calling endpoint: " + theEndpoint)
   resp, err := http.Get(theEndpoint)
@@ -46,7 +36,6 @@ func writeMarkerFile(thePath string) {
 
 func main() {
   // Get the user's defined profile folder.
-  //userHome := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
   userHome := strings.TrimSpace(os.Getenv("userprofile"))
   if userHome == "" {
     os.Exit(0)
@@ -55,9 +44,7 @@ func main() {
   // Is this the first time this application has run for this user?
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     debug("This is user first login.")
-    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
     _ = os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
-    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
     writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
     os.Exit(0)
   }
@@ -65,17 +52,14 @@ func main() {
   firstRun := false
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
     debug("This is a valid run.")
-    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
     writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
     if _, firstRunErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt"); !os.IsNotExist(firstRunErr) {
       firstRun = true
       debug("This is a valid first run.")
-      //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt 2>&1")
       _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
     }
   } else {
     debug("This is not a valid run.")
-    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
     _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
     os.Exit(0)
   }
@@ -112,7 +96,6 @@ func main() {
   _, pathErr = os.Stat("G:\\My Drive\\Desktop");
   for pathErr != nil && tries < 60 {
     debug("Desktop folder not ready yet.")
-    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir", "G:\\My Drive\\Desktop")
     _ = os.Mkdir("G:\\My Drive\\Desktop", 0750)
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive\\Desktop");
@@ -126,7 +109,6 @@ func main() {
   }
   
   if firstRun {
-    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
     _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
   }
 }
