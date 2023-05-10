@@ -23,7 +23,7 @@ func runAndGetOutput(theName string, theArgs ...string) string {
   out, err := cmd.CombinedOutput()
   if err != nil {
     debug("Running command " + theName + " - errror: " + err.Error())
-    return nil
+    return ""
   }
   return string(out)
 }
@@ -42,7 +42,7 @@ func callEndpoint(theEndpoint string) {
 func main() {
   // Get the user's defined profile folder.
   userHome := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
-  if userHome == nil {
+  if userHome == "" {
     os.Exit(0)
   }
   userHome = strings.TrimSpace(userHome)
@@ -68,16 +68,10 @@ func main() {
   
   // Stop Windows Explorer.
   debug("Stopping Windows Explorer...")
-  err = exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
-  if err != nil {
-    debug(err.Error())
-  }
+  _ = runAndGetOutput("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
   
   // Set user folder redirects.
-  err = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
-  if err != nil {
-    debug(err.Error())
-  }
+  _ = runAndGetOutput("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
   
   // Check if Google Drive is ready by checking for G:\My Drive...
   tries := 1
@@ -85,10 +79,7 @@ func main() {
   // ...if not, start it...
   if pathErr != nil {
     debug("Starting Google Drive...")
-    err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
-    if err != nil {
-      debug(err.Error())
-    }
+    _ = runAndGetOutput("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
   }
   // ...and wait for it to be ready...
   for pathErr != nil && tries < 60 {
@@ -109,8 +100,5 @@ func main() {
   }
   
   // Re-start Windows Explorer.
-  err = exec.Command("C:\\Windows\\Explorer.exe").Start()
-  if err != nil {
-    debug(err.Error())
-  }
+  _ = runAndGetOutput("C:\\Windows\\Explorer.exe").Start()
 }
