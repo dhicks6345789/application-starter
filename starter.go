@@ -47,7 +47,11 @@ func main() {
     }
   } else {
     debug("This is not a valid run.")
-    _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
+    err := os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
+    if err != nil {
+      debug(err.Error())
+    }
+    time.Sleep(20 * time.Second)
     os.Exit(0)
   }
   
@@ -89,8 +93,8 @@ func main() {
   // Re-start Windows Explorer.
   _ = exec.Command("C:\\Windows\\Explorer.exe").Start()
   
-  time.Sleep(10 * time.Second)
-  _ = exec.Command("C:\\Windows\\Explorer.exe","C:\\Users\\exams\\AppData\\Local\\ApplicationStarter").Start()
+  //time.Sleep(10 * time.Second)
+  //_ = exec.Command("C:\\Windows\\Explorer.exe","C:\\Users\\exams\\AppData\\Local\\ApplicationStarter").Start()
   
   if firstRun {
     _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
