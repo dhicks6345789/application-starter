@@ -46,7 +46,6 @@ func main() {
     os.Exit(0)
   }
   userHome = strings.TrimSpace(userHome)
-  debug("User Home: " + userHome)
   // Is this the first time this application has run for this user?
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     debug("This is user first login.")
