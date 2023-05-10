@@ -57,7 +57,6 @@ rem   del /S /Q "C:\Program Files\Application Starter\Users\*"
 rem )
 
 copy /y starter.exe "C:\Program Files\Application Starter"
-erase "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\starter.exe"
 erase starter.exe
 rem copy /y service.exe "C:\Program Files\Application Starter"
 rem erase service.exe
