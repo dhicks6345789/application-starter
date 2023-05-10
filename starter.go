@@ -46,12 +46,12 @@ func main() {
     os.Exit(0)
   }
   userHome = strings.TrimSpace(userHome)
+  
   // Is this the first time this application has run for this user?
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     debug("This is user first login.")
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
-    _ = runAndGetOutput("copy", "C:\\Program Files\\Application Starter\\starter.exe", "%userprofile%\\AppData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup")
     os.Exit(0)
   }
   
@@ -61,7 +61,7 @@ func main() {
   //firstRun := false
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
     debug("This is a valid run.")
-    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
+    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
     if _, firstRunErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt"); !os.IsNotExist(firstRunErr) {
       //firstRun = true
       debug("This is a valid first run.")
