@@ -116,6 +116,5 @@ func main() {
   
   if firstRun {
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "del /q /f %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
-    time.Sleep(30 * time.Second)
   }
 }
