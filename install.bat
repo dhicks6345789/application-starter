@@ -40,7 +40,6 @@ if not exist starter.exe (
   exit /B 1
 )
 copy /y starter.exe "C:\Program Files\Application Starter"
-erase "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\starterWinGUI.exe"
 copy /y starter.exe "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp"
 erase starter.exe
 
