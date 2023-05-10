@@ -46,7 +46,7 @@ func main() {
     // Is this the first time this application has run for this user?
     if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
       debug("This is user first login.")
-      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir", "%userprofile%\\AppData\\Local\\ApplicationStarter")
+      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
       if mkdirErr != nil {
         debug(mkdirErr.Error())
       }
@@ -54,7 +54,7 @@ func main() {
     }
     if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
       debug("This is a valid run.")
-      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", ">", "%userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
+      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
       if mkdirErr != nil {
         debug(mkdirErr.Error())
       }
@@ -64,7 +64,6 @@ func main() {
       if mkdirErr != nil {
         debug(mkdirErr.Error())
       }
-      time.Sleep(30 * time.Second)
       os.Exit(0)
     }
   }
