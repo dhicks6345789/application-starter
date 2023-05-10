@@ -47,7 +47,6 @@ if not exist starter.exe (
   echo Compile fail - starter.go
   exit /B 1
 )
-erase "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\starter.exe"
 copy /y starter.exe "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\starterWinGUI.exe"
 erase starter.exe
 
