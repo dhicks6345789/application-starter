@@ -50,6 +50,9 @@ func main() {
       if mkdirErr != nil {
         debug(mkdirErr.Error())
       }
+      if debugOn == "true" {
+        time.Sleep(30 time.Second)
+      }
       os.Exit(0)
     }
     if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
@@ -58,11 +61,17 @@ func main() {
       if mkdirErr != nil {
         debug(mkdirErr.Error())
       }
+      if debugOn == "true" {
+        time.Sleep(30 time.Second)
+      }
     } else {
       debug("This is not a valid run.")
       _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "erase %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
       if mkdirErr != nil {
         debug(mkdirErr.Error())
+      }
+      if debugOn == "true" {
+        time.Sleep(30 time.Second)
       }
       os.Exit(0)
     }
