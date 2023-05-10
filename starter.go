@@ -60,7 +60,7 @@ func main() {
       }
     } else {
       debug("This is not a valid run.")
-      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "erase", "/y", "%userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt", "2>&1")
+      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "erase %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt 2>&1")
       if mkdirErr != nil {
         debug(mkdirErr.Error())
       }
