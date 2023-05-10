@@ -27,16 +27,29 @@ if exist %userprofile%\AppData\Local\ApplicationStarter\starter.txt (
   del /Q /F %userprofile%\AppData\Local\ApplicationStarter\starter.txt 2>&1
 )
 
-echo Compiling Go code...
-if %debug%==1 (
-  go build -ldflags "-X main.debugOn=true" application-starter\starter.go
-) else (
-  go build -ldflags "-H windowsgui" application-starter\starter.go
+echo Making sure Application Installer folder exists.
+if not exist "C:\Program Files\Application Starter" (
+  mkdir "C:\Program Files\Application Starter"
+  rem mkdir "C:\Program Files\Application Starter\Users"
 )
+
+echo Compiling Go code...
+go build -ldflags "-X main.debugOn=true" application-starter\starter.go
 if not exist starter.exe (
   echo Compile fail - starter.go
   exit /B 1
 )
+copy /y starter.exe "C:\Program Files\Application Starter"
+erase starter.exe
+
+go build -ldflags "-H windowsgui" application-starter\starter.go
+if not exist starter.exe (
+  echo Compile fail - starter.go
+  exit /B 1
+)
+erase "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\starter.exe"
+copy /y starter.exe "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\starterWinGUI.exe"
+erase starter.exe
 
 rem go build application-starter\service.go
 rem if not exist service.exe (
@@ -47,18 +60,11 @@ rem )
 rem echo Stopping existing service...
 rem net stop ApplicationStarter
 
-echo Installing...
-if not exist "C:\Program Files\Application Starter" (
-  mkdir "C:\Program Files\Application Starter"
-  rem mkdir "C:\Program Files\Application Starter\Users"
-)
+
 rem if %debug%==1 (
 rem   del /S /Q "C:\Program Files\Application Starter\Users\*"
 rem )
 
-copy /y starter.exe "C:\Program Files\Application Starter"
-copy /y starter.exe "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp"
-erase starter.exe
 rem copy /y service.exe "C:\Program Files\Application Starter"
 rem erase service.exe
 copy /y application-starter\setExplorer.reg "C:\Program Files\Application Starter"
