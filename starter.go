@@ -39,22 +39,26 @@ func callEndpoint(theEndpoint string) {
   resp.Body.Close()
 }
 
+func writeMarkerFile(thePath string) {
+  emptyFile, _ := os.Create(thePath)
+  emptyFile.Close()
+}
+
 func main() {
   // Get the user's defined profile folder.
   //userHome := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
-  userHome := os.Getenv("userprofile")
+  userHome := strings.TrimSpace(os.Getenv("userprofile"))
   if userHome == "" {
     os.Exit(0)
   }
-  userHome = strings.TrimSpace(userHome)
-  debug(userHome)
-  os.Exit(0)
   
   // Is this the first time this application has run for this user?
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     debug("This is user first login.")
-    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
-    _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
+    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
+    _ := os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
+    //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
+    writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
     os.Exit(0)
   }
   
