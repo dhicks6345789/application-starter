@@ -30,7 +30,6 @@ if exist %userprofile%\AppData\Local\ApplicationStarter\starter.txt (
 echo Making sure Application Installer folder exists.
 if not exist "C:\Program Files\Application Starter" (
   mkdir "C:\Program Files\Application Starter"
-  rem mkdir "C:\Program Files\Application Starter\Users"
 )
 
 echo Compiling Go code...
@@ -39,7 +38,7 @@ if not exist starter.exe (
   echo Compile fail - starter.go
   exit /B 1
 )
-copy /y starter.exe "C:\Program Files\Application Starter"
+copy /y starter.exe "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\starterWinGUI.exe"
 erase starter.exe
 
 go build -ldflags "-H windowsgui" application-starter\starter.go
@@ -47,7 +46,7 @@ if not exist starter.exe (
   echo Compile fail - starter.go
   exit /B 1
 )
-copy /y starter.exe "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\starterWinGUI.exe"
+copy /y starter.exe "C:\Program Files\Application Starter"
 erase starter.exe
 
 rem go build application-starter\service.go
