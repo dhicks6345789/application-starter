@@ -55,7 +55,7 @@ func main() {
     _ = runAndGetOutput("copy", "C:\Program Files\Application Starter\\starter.exe", "%userprofile%\\AppData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup")
     os.Exit(0)
   }
-  firstRun := false
+  //firstRun := false
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
     debug("This is a valid run.")
     //_ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\starter.txt")
