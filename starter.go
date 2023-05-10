@@ -18,17 +18,6 @@ func debug(theMessage string) {
   }
 }
 
-func callEndpoint(theEndpoint string) {
-  debug("Calling endpoint: " + theEndpoint)
-  resp, err := http.Get(theEndpoint)
-  if err != nil {
-    debug(err.Error())
-  }
-  body, err := ioutil.ReadAll(resp.Body)
-  debug("Result: " + string(body))
-  resp.Body.Close()
-}
-
 func writeMarkerFile(thePath string) {
   emptyFile, _ := os.Create(thePath)
   emptyFile.Close()
@@ -79,10 +68,7 @@ func main() {
   // ...if not, start it...
   if pathErr != nil {
     debug("Starting Google Drive...")
-    err := exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
-    if err != nil {
-      debug(err.Error())
-    }
+    _ = exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
   }
   // ...and wait for it to be ready...
   for pathErr != nil && tries < 60 {
@@ -103,10 +89,7 @@ func main() {
   }
   
   // Re-start Windows Explorer.
-  err := exec.Command("C:\\Windows\\Explorer.exe").Start()
-  if err != nil {
-    debug(err.Error())
-  }
+  _ = exec.Command("C:\\Windows\\Explorer.exe").Start()
   
   if firstRun {
     _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
