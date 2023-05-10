@@ -43,12 +43,10 @@ func main() {
     debug(err.Error())
   } else {
     userHome = strings.TrimSpace(userHome)
-    debug("User Home: " + userHome + "AAA")
-    // if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
-    _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter")
-    debug(pathErr.Error())
+    debug("User Home: " + userHome)
+    if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     if os.IsNotExist(pathErr) {
-      debug("Is first login!")
+      debug("This is user first login.")
       firstLogin = true
       _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir", "%userprofile%\\AppData\\Local\\ApplicationStarter")
       if mkdirErr != nil {
