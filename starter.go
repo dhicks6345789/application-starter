@@ -52,7 +52,7 @@ func main() {
     debug("This is user first login.")
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir %userprofile%\\AppData\\Local\\ApplicationStarter 2>&1")
     _ = runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo > %userprofile%\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
-    _ = runAndGetOutput("copy", "C:\Program Files\Application Starter\\starter.exe", "%userprofile%\\AppData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup")
+    _ = runAndGetOutput("copy", "C:\\Program Files\\Application Starter\\starter.exe", "%userprofile%\\AppData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup")
     os.Exit(0)
   }
   //firstRun := false
