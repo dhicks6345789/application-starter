@@ -41,11 +41,14 @@ func callEndpoint(theEndpoint string) {
 
 func main() {
   // Get the user's defined profile folder.
-  userHome := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
+  //userHome := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "echo", "%userprofile%")
+  userHome := os.Getenv("userprofile")
   if userHome == "" {
     os.Exit(0)
   }
   userHome = strings.TrimSpace(userHome)
+  debug(userHome)
+  os.Exit(0)
   
   // Is this the first time this application has run for this user?
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
