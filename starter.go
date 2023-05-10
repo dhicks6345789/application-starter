@@ -64,6 +64,7 @@ func main() {
       if mkdirErr != nil {
         debug(mkdirErr.Error())
       }
+      time.Sleep(30 * time.Second)
       os.Exit(0)
     }
   }
