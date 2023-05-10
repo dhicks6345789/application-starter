@@ -70,7 +70,7 @@ func main() {
   }
   
   // Pause so Explorer has time to start properly.
-  time.Sleep(2 * time.Second)
+  time.Sleep(4 * time.Second)
   
   // Stop Windows Explorer.
   debug("Stopping Windows Explorer...")
