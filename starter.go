@@ -41,10 +41,13 @@ func main() {
   if err != nil {
     debug(err.Error())
   } else {
-    fmt.Println("User home:")
-    debug(userHome)
-    if _, pathErr := os.Stat(userHome); os.IsNotExist(pathErr) {
+    debug("User Home: " + userHome)
+    if _, pathErr := os.Stat(userHome + "\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
       firstLogin = true
+      _, mkdirErr := runAndGetOutput("C:\\Windows\\System32\\cmd.exe", "/C", "mkdir", "%userprofile%\\AppData\\Local\\ApplicationStarter")
+      if mkdirErr != nil {
+        debug(mkdirErr.Error())
+      }
     }
   }
   
@@ -54,7 +57,6 @@ func main() {
   if firstLogin {
     os.Exit(0)
   }
-  //os.Exit(0)
   
   // Stop Windows Explorer.
   debug("Stopping Windows Explorer...")
