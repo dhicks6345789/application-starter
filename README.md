@@ -11,14 +11,17 @@ When a user logs in to a Windows machine, the shell (Windows Explorer, the execu
 
 By default, the user's Desktop folder will be a local (or domain) folder. A simple registry / Active Directory setting can redirect that location to a Google Drive folder ("G:\My Drive\Desktop", for instance), but as Explorer loads before Google Drive the user will get an error message pop-up saying their Desktop folder could not be found.
 
-The solution to this is to make sure that Google Drive loads before Windows Explorer. In theory, this could be done by using a Windows registry entry (the "Shell" value in HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon) to replace the defined user shell with an application that starts Google Drive, waits for it to be ready, then starts Explorer. However, the version of Explorer that starts up will be the simple file folder view, not the full desktop. Explorer only starts up as the desktop if that registry key is set to "Explorer.exe".
+The solution to this is to make sure that Google Drive loads before Windows Explorer. In theory, this could be done by using a Windows registry entry (the `Shell` value in `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`) to replace the defined user shell with an application that starts Google Drive, waits for it to be ready, then starts Explorer. However, the version of Explorer that starts up will be the simple file folder view, not the full desktop. Explorer only starts up as the desktop if that registry key is set to `Explorer.exe`.
 
-Therefore, we run the helper application before Explorer starts by using the "Userinit" key instead. The helper application then stops Explorer, starts Google Drive, waits for it to start, then re-starts Explorer. A slightly different helper application is needed for first user login as simply stopping Explorer stops the new-user setup process from completing, that is run using an entry in HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run.
-
-
+Therefore, we run the helper application before Explorer starts by using the `Userinit` key instead. The helper application then stops Explorer, starts Google Drive, waits for it to start, then re-starts Explorer. A slightly different helper application is needed for first user login as simply stopping Explorer stops the new-user setup process from completing, that is run using an entry in `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run`.
 
 ### Solution
 This project contains a batch file installer and executable code, written in Go, to implement the setup as described above.
 
 ## Installation
 Clone the project, run the batch file.
+
+## To Do
+- Have batch file download and runnable in one line.
+- Loading screen for new user section.
+- Check all folder redirects are correct.
