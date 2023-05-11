@@ -16,11 +16,6 @@ func debug(theMessage string) {
   }
 }
 
-func writeMarkerFile(thePath string) {
-  emptyFile, _ := os.Create(thePath)
-  emptyFile.Close()
-}
-
 func main() {
   // Get the user's defined profile folder.
   userHome := strings.TrimSpace(os.Getenv("userprofile"))
@@ -35,26 +30,6 @@ func main() {
   
   debug("This is user first login.")
   _ = os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
-  
-  // writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
-  
-  /*if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
-    debug("This is a valid run.")
-    writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
-    if _, firstRunErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt"); !os.IsNotExist(firstRunErr) {
-      firstRun = true
-      debug("This is a valid first run.")
-      _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
-    }
-  } else {
-    debug("This is not a valid run.")
-    err := os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
-    if err != nil {
-      debug(err.Error())
-    }
-    time.Sleep(20 * time.Second)
-    os.Exit(0)
-  }*/
   
   // Pause so Explorer has time to start properly.
   time.Sleep(2 * time.Second)
@@ -93,7 +68,4 @@ func main() {
   
   // Re-start Windows Explorer.
   _ = exec.Command("C:\\Windows\\Explorer.exe").Start()
-  
-  //time.Sleep(10 * time.Second)
-  //_ = exec.Command("C:\\Windows\\Explorer.exe","C:\\Users\\exams\\AppData\\Local\\ApplicationStarter").Start()
 }
