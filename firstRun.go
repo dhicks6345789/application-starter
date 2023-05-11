@@ -29,15 +29,16 @@ func main() {
   }
   
   // Is this the first time this application has run for this user?
-  if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
-    debug("This is user first login.")
-    _ = os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
-    writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
+  if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); !os.IsNotExist(pathErr) {
     os.Exit(0)
   }
   
-  firstRun := false
-  if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
+  debug("This is user first login.")
+  _ = os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
+  
+  // writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt")
+  
+  /*if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt"); os.IsNotExist(pathErr) {
     debug("This is a valid run.")
     writeMarkerFile(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
     if _, firstRunErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter\\firstRun.txt"); !os.IsNotExist(firstRunErr) {
@@ -53,7 +54,7 @@ func main() {
     }
     time.Sleep(20 * time.Second)
     os.Exit(0)
-  }
+  }*/
   
   // Pause so Explorer has time to start properly.
   time.Sleep(2 * time.Second)
@@ -95,8 +96,4 @@ func main() {
   
   //time.Sleep(10 * time.Second)
   //_ = exec.Command("C:\\Windows\\Explorer.exe","C:\\Users\\exams\\AppData\\Local\\ApplicationStarter").Start()
-  
-  if firstRun {
-    _ = os.Remove(userHome + "\\AppData\\Local\\ApplicationStarter\\starter.txt")
-  }
 }
