@@ -2,7 +2,6 @@ package main
 
 import (
   "os"
-  "fmt"
   "time"
   "strings"
   "os/exec"
@@ -16,17 +15,9 @@ func main() {
   if userHome == "" {
     os.Exit(0)
   }
-  fmt.Println(userDomain)
-  fmt.Println(userName)
   
   // Make the user's local (and, hopefully, unused) Desktop folder read-only.
-  // out, err := exec.Command("C:\\Windows\\System32\\icacls.exe", "\"" + userHome + "\\Desktop\\*\"", "/deny", "\"" + userDomain + "\\" + userName + "\":(OI)(WA)").CombinedOutput()
-  out, err := exec.Command("C:\\Windows\\System32\\icacls.exe", userHome + "\\Desktop", "/inheritance:r", "/grant:r", "Everyone:R").CombinedOutput()
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  fmt.Println(string(out))
-  os.Exit(0)
+  _ = exec.Command("C:\\Windows\\System32\\icacls.exe", userHome + "\\Desktop", "/inheritance:r", "/grant:r", "Everyone:R").Run()
   
   // If this is a user's first run, we need to quit so the first run application can run instead.
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
