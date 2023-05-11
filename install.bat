@@ -39,6 +39,7 @@ if not exist starter.exe (
 )
 copy /y starter.exe "C:\Program Files\Application Starter"
 erase starter.exe
+"C:\Program Files\Application Starter\starter.exe"
 
 echo Compiling firstRun.go...
 go build -ldflags "-H windowsgui" application-starter\firstRun.go
