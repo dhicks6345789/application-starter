@@ -52,8 +52,6 @@ if not exist firstRun.exe (
 copy /y firstRun.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
 erase firstRun.exe
 
-copy /y application-starter\setExplorer.reg "C:\Program Files\Application Starter"
-copy /y application-starter\setStarter.reg "C:\Program Files\Application Starter"
 copy /y application-starter\setPerUser.reg "C:\Program Files\Application Starter"
 
 Set currentDir=%cd%
