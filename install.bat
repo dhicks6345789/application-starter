@@ -48,7 +48,7 @@ if not exist firstRun.exe (
   echo Compile fail - firstRun.go
   exit /B 1
 )
-copy /y firstRun.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+rem copy /y firstRun.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
 erase firstRun.exe
 
 rem go build application-starter\service.go
