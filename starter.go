@@ -14,6 +14,9 @@ func main() {
     os.Exit(0)
   }
   
+  // Make the user's local (and, hopefully, unused) Desktop folder read-only.
+  _ = exec.Command("ICACLS " + userProfile + "\\Desktop\\*\" /deny \"%userdomain%\\%username%\":(OI)(WA)").Run()
+  
   // If this is a user's first run, we need to quit so the first run application can run instead.
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
     os.Exit(0)
