@@ -8,14 +8,6 @@ import (
   "os/exec"
 )
 
-var debugOn string
-
-func debug(theMessage string) {
-  if debugOn == "true" {
-    fmt.Println(theMessage)
-  }
-}
-
 func main() {
   // Get the user's defined profile folder.
   userHome := strings.TrimSpace(os.Getenv("userprofile"))
@@ -28,11 +20,10 @@ func main() {
     os.Exit(0)
   }
   
-  debug("This is user first login.")
   _ = os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
   
   // Pause so Explorer has time to start properly.
-  time.Sleep(2 * time.Second)
+  //time.Sleep(2 * time.Second)
   
   // Stop Windows Explorer.
   _ = exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
@@ -44,12 +35,10 @@ func main() {
   _, pathErr := os.Stat("G:\\My Drive");
   // ...if not, start it...
   if pathErr != nil {
-    debug("Starting Google Drive...")
     _ = exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
   }
   // ...and wait for it to be ready...
   for pathErr != nil {
-    debug("Google Drive not ready yet.")
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive");
   }
@@ -57,7 +46,6 @@ func main() {
   tries := 1
   _, pathErr = os.Stat("G:\\My Drive\\Desktop");
   for pathErr != nil && tries < 60 {
-    debug("Desktop folder not ready yet.")
     _ = os.Mkdir("G:\\My Drive\\Desktop", 0750)
     time.Sleep(1 * time.Second)
     _, pathErr = os.Stat("G:\\My Drive\\Desktop");
