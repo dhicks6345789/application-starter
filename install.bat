@@ -40,8 +40,8 @@ if not exist starter.exe (
   exit /B 1
 )
 copy /y starter.exe "C:\Program Files\Application Starter"
-rem copy /y starter.exe "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp"
-erase "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp"
+rem copy /y starter.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\\StartUp"
+erase "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\starter.exe"
 erase starter.exe
 
 rem go build application-starter\service.go
