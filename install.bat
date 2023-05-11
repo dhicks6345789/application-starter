@@ -32,7 +32,7 @@ if not exist "C:\Program Files\Application Starter" (
   mkdir "C:\Program Files\Application Starter"
 )
 
-echo Compiling Go code...
+echo Compiling starter.go...
 rem go build -ldflags "-H windowsgui" application-starter\starter.go
 go build -ldflags "-X main.debugOn=true" application-starter\starter.go
 if not exist starter.exe (
@@ -42,8 +42,9 @@ if not exist starter.exe (
 copy /y starter.exe "C:\Program Files\Application Starter"
 erase starter.exe
 
-rem go build -ldflags "-H windowsgui" application-starter\firstRun.go
-go build -ldflags "-X main.debugOn=true" application-starter\firstRun.go
+echo Compiling firstRun.go...
+go build -ldflags "-H windowsgui" application-starter\firstRun.go
+rem go build -ldflags "-X main.debugOn=true" application-starter\firstRun.go
 if not exist firstRun.exe (
   echo Compile fail - firstRun.go
   exit /B 1
