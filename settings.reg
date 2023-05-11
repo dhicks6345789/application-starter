@@ -14,5 +14,5 @@ Windows Registry Editor Version 5.00
 ; "DefaultPassword"="PASSWORD"
 "Userinit"="C:\\Windows\\system32\\userinit.exe,C:\\Program Files\\Application Starter\\starter.exe"
 
-; [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
 "ApplicationStarter"="C:\\Program Files\\Application Starter\\firstRun.exe"
