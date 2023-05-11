@@ -20,7 +20,8 @@ func main() {
   fmt.Println(userName)
   
   // Make the user's local (and, hopefully, unused) Desktop folder read-only.
-  out, err := exec.Command("C:\\Windows\\System32\\icacls.exe", "\"" + userHome + "\\Desktop\\*\"", "/deny", "\"" + userDomain + "\\" + userName + "\":(OI)(WA)").CombinedOutput()
+  // out, err := exec.Command("C:\\Windows\\System32\\icacls.exe", "\"" + userHome + "\\Desktop\\*\"", "/deny", "\"" + userDomain + "\\" + userName + "\":(OI)(WA)").CombinedOutput()
+  out, err := exec.Command("C:\\Windows\\System32\\icacls.exe", "\"" + userHome + "\\Desktop\"", "/inheritance:r", "/grant:r", "Everyone:R").CombinedOutput()
   if err != nil {
     fmt.Println(err.Error())
   }
