@@ -15,7 +15,7 @@ func main() {
   }
   
   // Make the user's local (and, hopefully, unused) Desktop folder read-only.
-  _ = exec.Command("C:\\Windows\\System32\\icacls.exe", userHome + "\\Desktop\\*\"", "/deny", "\"%userdomain%\\%username%\":(OI)(WA)").Run()
+  _ = exec.Command("echo", "C:\\Windows\\System32\\icacls.exe", userHome + "\\Desktop\\*\"", "/deny", "\"%userdomain%\\%username%\":(OI)(WA)").Run()
   os.Exit(0)
   
   // If this is a user's first run, we need to quit so the first run application can run instead.
