@@ -19,11 +19,6 @@ func main() {
     os.Exit(0)
   }
   
-  _ = os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
-  
-  // Pause so Explorer has time to start properly.
-  //time.Sleep(2 * time.Second)
-  
   // Stop Windows Explorer.
   _ = exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
   
@@ -53,4 +48,7 @@ func main() {
   
   // Re-start Windows Explorer.
   _ = exec.Command("C:\\Windows\\Explorer.exe").Start()
+  
+  // Create the application data folder - really just used as a "first run" marker.
+  _ = os.Mkdir(userHome + "\\AppData\\Local\\ApplicationStarter", 0750)
 }
