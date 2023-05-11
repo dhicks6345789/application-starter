@@ -25,8 +25,6 @@ func main() {
   
   // If this is a user's first run, we need to quit so the first run application can run instead.
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
-    //HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
-    _ = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setUserRun.reg").Run()
     os.Exit(0)
   }
   
