@@ -10,7 +10,6 @@ rem Parse any parameters.
 if "%1"=="" goto paramContinue
 if "%1"=="--debug" (
   set debug=1
-  echo ### DEBUG MODE SET ###
 )
 shift
 goto paramLoop
@@ -33,8 +32,7 @@ if not exist "C:\Program Files\Application Starter" (
 )
 
 echo Compiling starter.go...
-rem go build -ldflags "-H windowsgui" application-starter\starter.go
-go build -ldflags "-X main.debugOn=true" application-starter\starter.go
+go build -ldflags application-starter\starter.go
 if not exist starter.exe (
   echo Compile fail - starter.go
   exit /B 1
@@ -44,12 +42,10 @@ erase starter.exe
 
 echo Compiling firstRun.go...
 go build -ldflags "-H windowsgui" application-starter\firstRun.go
-rem go build -ldflags "-X main.debugOn=true" application-starter\firstRun.go
 if not exist firstRun.exe (
   echo Compile fail - firstRun.go
   exit /B 1
 )
-rem copy /y firstRun.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
 copy /y firstRun.exe "C:\Program Files\Application Starter"
 erase firstRun.exe
 
