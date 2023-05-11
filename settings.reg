@@ -8,15 +8,11 @@ Windows Registry Editor Version 5.00
 ; "domains_allowed_to_login"="domain"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
-"AutoAdminLogon"="0"
+; "AutoAdminLogon"="1"
 ; "DeafultDomainName"="DOMAIN"
-; "DefaultUserName"="user"
-; "DefaultPassword"="password"
-; "Shell"="C:\\Program Files\\Application Starter\\starter.exe"
-; "Shell"="Explorer.exe"
+; "DefaultUserName"="USER"
+; "DefaultPassword"="PASSWORD"
 "Userinit"="C:\\Windows\\system32\\userinit.exe,C:\\Program Files\\Application Starter\\starter.exe"
-; "Userinit"="C:\\Program Files\\Application Starter\\starter.exe"
-; "Userinit"="C:\\Windows\\system32\\userinit.exe"
 
 ; [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
-; "AppStarter"="C:\\Program Files\\Application Starter\\starter.exe"
+"ApplicationStarter"="C:\\Program Files\\Application Starter\\firstRun.exe"
