@@ -32,7 +32,7 @@ if not exist "C:\Program Files\Application Starter" (
 )
 
 echo Compiling starter.go...
-go build -ldflags application-starter\starter.go
+go build application-starter\starter.go
 if not exist starter.exe (
   echo Compile fail - starter.go
   exit /B 1
