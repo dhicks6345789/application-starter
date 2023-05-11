@@ -10,8 +10,6 @@ import (
 func main() {
   // Get the user's defined profile folder.
   userHome := strings.TrimSpace(os.Getenv("userprofile"))
-  userDomain := strings.TrimSpace(os.Getenv("userdomain"))
-  userName := strings.TrimSpace(os.Getenv("username"))
   if userHome == "" {
     os.Exit(0)
   }
