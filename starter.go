@@ -11,9 +11,13 @@ import (
 func main() {
   // Get the user's defined profile folder.
   userHome := strings.TrimSpace(os.Getenv("userprofile"))
+  userDomain := strings.TrimSpace(os.Getenv("userdomain"))
+  userName := strings.TrimSpace(os.Getenv("username"))
   if userHome == "" {
     os.Exit(0)
   }
+  fmt.Println(userDomain)
+  fmt.Println(userName)
   
   // Make the user's local (and, hopefully, unused) Desktop folder read-only.
   out, err := exec.Command("C:\\Windows\\System32\\icacls.exe", "\"" + userHome + "\\Desktop\\*\"", "/deny", "\"%userdomain%\\%username%\":(OI)(WA)").CombinedOutput()
