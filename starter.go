@@ -23,6 +23,10 @@ func main() {
     os.Exit(0)
   }
   
+  if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
+    os.Exit(0)
+  }
+  
   // Pause so Explorer has time to start properly.
   time.Sleep(2 * time.Second)
   
