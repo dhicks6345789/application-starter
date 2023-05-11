@@ -1,4 +1,4 @@
 Windows Registry Editor Version 5.00
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
-"Shell"="C:\\Program Files\\Application Starter\\starter.exe"
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run]
+"ApplicationStarter"="C:\\Program Files\\Application Starter\\firstRun.exe"
