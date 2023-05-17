@@ -66,6 +66,8 @@ With the source code present the script will compile the Go applications into ex
 ## Help / Support
 This project comes with no garuntee of any further help or support, or even that it won't simply break your computer. I'm a systems administrator for a school, the code and setup in this project has been tested with the particular setup available to me (Windows 11 laptop, Google Workspace for Education). If you've found this project there's a good chance you are also the administrator for a school or company setup involving both Windows machines and a Google Workspace domain. If you have useful testing feedback or any suggestions you can open an issue on the [Github project](https://github.com/dhicks6345789/application-starter) or contact me over on [EduGeek](http://www.edugeek.net/members/dhicks.html) - if you're setting up Google Workspace / Chromebooks in an educational setting then EduGeek is a good community to browse and ask questions of.
 
+A combination that hasn't been tested yet is this project working on a remote dekstop server - possibly one implemented by [another project of mine](https://github.com/dhicks6345789/remote-gateway). In theory, it should work okay - login cookies from the login process won't be passed through to Chrome like they are with GCPW, but otherwise the functionality should work the same. I plan to test this on a server soon.
+
 ### To Do
 - More testing.
 - Add restart loop for Google Drive setup for first use.
