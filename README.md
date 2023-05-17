@@ -21,7 +21,7 @@ Therefore, we run the helper application before Explorer starts by using the `Us
 This project contains a batch file installer and executable code, written in Go, to implement the setup as described above. It implements a small helper executable that stops Windows Explorer, starts the Google Drive client, waits for the Google Drive client to be ready, then starts Windows Explorer back up again.
 
 ## Installation
-Before you install the code from this project you need to install the [Google Drive client](https://www.google.com/intl/en-GB/drive/download/) on your Windows desktop / laptop machine. You will also need to have Google Chrome installed.
+Before you install the code from this project you need to install the [Google Drive client](https://www.google.com/intl/en-GB/drive/download/) on your Windows desktop / laptop machine. You will also need to have [Google Chrome](https://www.google.com/intl/en_uk/chrome/) installed.
 
 You don't need to sign in to the Google Drive client to run the installer. The installer will set a Registry option to tell the Drive client to bypass the system default browser option and always use Chrome.
 
@@ -35,14 +35,16 @@ This project has been tested with the [Google Credential Provider for Windows](h
 
 Again, before you install anything, this project is intended for administrators of fleets of devices - this project is something you install on a test device of some kind, not on your or someone else's mission-critical personal workstation. It doesn't carry out any mass moving or deleting of files, but it does change the way your computer starts up, so you might be left with a blank screen on login (if you do find that, hitting ctrl-alt-delete should bring up a dialog that allows you to get a desktop environment going).
 
-### One-Line Command
+### Simple Install: One-Line Command
 Open a command prompt as administrator and run the following line:
 
 ```
 powershell -command "& {&'Invoke-WebRequest' -Uri https://www.sansay.co.uk/application-starter/install.bat -OutFile install.bat}" && install.bat && erase install.bat
 ```
 
-### Download And Compile Source Code
+Hopefully, that should be it - restart the machine and log in, you should be asked to set up your user account with Google Drive if it isn't already and your desktop should be redirected to `G:\My Drive\Desktop`.
+
+### Less Simple Install: Download And Compile Source Code
 Again, you'll need to open a command prompt as administrator. Note that the administrator command prompt starts in `C:\Windows\System32`, as you're going to be downloading files you should probably change folder (`cd C:\Users\admin` or whatever).
 
 You will need the [Git](https://gitforwindows.org/) version control system and the [Go](https://go.dev/) programming language installed on your Windows machine.
