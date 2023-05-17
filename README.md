@@ -1,4 +1,4 @@
-# application-starter
+# Application Starter
 A utility to help with the startup order of Windows applications - in particular, to make sure Google Drive starts before the Desktop so that the user desktop folder can be redirected to Google Drive.
 
 ## Who Is This Project For?
