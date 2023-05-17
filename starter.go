@@ -9,13 +9,14 @@ import (
 
 func main() {
   // Get the user's defined profile folder.
+  userName := strings.TrimSpace(os.Getenv("username"))
   userHome := strings.TrimSpace(os.Getenv("userprofile"))
   if userHome == "" {
     os.Exit(0)
   }
   
   // Make the user's local (and, hopefully, unused) Desktop folder read-only.
-  _ = exec.Command("C:\\Windows\\System32\\icacls.exe", userHome + "\\Desktop", "/inheritance:r", "/grant:r", "Everyone:R").Run()
+  _ = exec.Command("C:\\Windows\\System32\\icacls.exe", userHome + "\\Desktop", "/inheritance:r", "/grant:r", "" + userName + ":R").Run()
   
   // If this is a user's first run, we need to quit so the first run application can run instead.
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
