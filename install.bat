@@ -15,21 +15,25 @@ shift
 goto paramLoop
 :paramContinue
 
-if exist C:\Users\d.hicks_knightsbridg (
-  echo Deleting user...
-  net user d.hicks_knightsbridg /delete
-  del /Q /S C:\Users\d.hicks_knightsbridg
-  rmdir /Q /S C:\Users\d.hicks_knightsbridg
-)
-
-if exist %userprofile%\AppData\Local\ApplicationStarter\starter.txt (
-  del /Q /F %userprofile%\AppData\Local\ApplicationStarter\starter.txt 2>&1
-)
-
 echo Making sure Application Installer folder exists.
 if not exist "C:\Program Files\Application Starter" (
   mkdir "C:\Program Files\Application Starter"
 )
+
+Set currentDir=%cd%
+
+if exist application-starter (
+  set subFolder="application-starter\"
+  goto compileCode
+)
+
+if exist starter.go (
+  set subFolder=""
+  goto compileCode
+)
+
+goto downloadCode
+:compileCode
 
 echo Compiling starter.go...
 go build application-starter\starter.go
@@ -51,7 +55,21 @@ erase firstRun.exe
 
 copy /y application-starter\setPerUser.reg "C:\Program Files\Application Starter"
 
-Set currentDir=%cd%
 regedit /S %currentDir%\application-starter\settings.reg
+goto end
 
+:downloadCode
+copy /y starter.exe "C:\Program Files\Application Starter"
+erase starter.exe
+
+copy /y firstRun.exe "C:\Program Files\Application Starter"
+erase firstRun.exe
+
+copy /y setPerUser.reg "C:\Program Files\Application Starter"
+erase setPerUser.reg
+
+regedit /S %currentDir%\settings.reg
+erase settings.reg
+
+:end
 echo Done!
