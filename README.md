@@ -4,6 +4,8 @@ A utility to help with the startup order of Windows applications - in particular
 ## Who Is This Project For?
 The code and settings contained in this project are intended for administrators of fleets of Microsoft Windows devices (laptops, desktop workstations, etc) who intend to have their users use the Google Drive client on their machines. This probably means administrators of school or company IT setups, the average home user is probably not going to find this very useful. In particular, you will probably need devices running an Enterprise or Education edition of Windows 10 or 11 (although all versions of Windows 11 might work, I'm not sure).
 
+Combining this project along with the [Google Drive client for Windows](https://www.google.com/intl/en-GB/drive/download/) and [Google Credential Provider for Windows](https://support.google.com/a/answer/9250996?hl=en) should provide a mechansim to have both cloud (Google) based authentication and file storage for a Windows machine without the need for an Active Directory setup.
+
 ## What Does This Project Do?
 
 ### Problem
@@ -16,9 +18,19 @@ The solution to this is to make sure that Google Drive loads before Windows Expl
 Therefore, we run the helper application before Explorer starts by using the `Userinit` key instead. The helper application then stops Explorer, starts Google Drive, waits for it to start, then re-starts Explorer. A slightly different helper application is needed for first user login (as simply stopping Explorer stops the new-user setup process from completing), that is run using an entry in `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run`.
 
 ### Solution
-This project contains a batch file installer and executable code, written in Go, to implement the setup as described above.
+This project contains a batch file installer and executable code, written in Go, to implement the setup as described above. It implements a small helper executable that stops Windows Explorer, starts the Google Drive client, waits for the Google Drive client to report it is ready, then starts Windows Explorer back up again.
 
 ## Installation
+Before you install the code from this project you need to install the [Google Drive client](https://www.google.com/intl/en-GB/drive/download/) on your Windows desktop / laptop machine. You will also need to have Google Chrome installed.
+
+You don't need to sign in to the Google Drive client to run the installer. The installer will set a Registry option to tell the Drive client to bypass the system default browser option and always use Chrome.
+
+The installer will also disable the Google Drive client start-on-login option as Google Drive is started separatly by the helper application. If the end user changes the option it shouldn't be any great problem, the Drive client will just pop up a status / file browser window on startup, just have the user change the option back again if they find that annoying.
+
+When a user logs in to a Windows computer for the first time they will be presented with the standard authorise-Google-Drive-for-this-machine dialog. They won't be able to proceed until they get Google Drive set up. If this is the first time a new user has logged in to any machine they will have a "Desktop" folder created in their "My Drive" section. Logging on to other machines, they should see the exact same desktop contents (although, typically, Windows re-arranges items on different desktops, especially if the screen resolution is different).
+
+This project has been tested with the [Google Credential Provider for Windows](https://support.google.com/a/answer/9250996?hl=en) - a user should be able to log into Windows with their Google credentials and straight away be presented with the authorisation dialog to allow Google Drive access as well, credentials from the login should be passed through to Chrome.
+
 ### One-Line Command
 Open a command prompt as administrator and run the following line:
 
