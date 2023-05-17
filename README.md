@@ -67,3 +67,4 @@ This project comes with no garuntee of any further help or support, or even that
 ### To Do
 - More testing.
 - Make list of startup options configurable to allow for different applications. Might be particularly handy as a way of setting up kisok machines for exams or displays.
+- Add more redirects for Documents, check if there's other locations to set Registry keys so that all applications see redirected location properly.
