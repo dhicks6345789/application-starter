@@ -59,17 +59,19 @@ regedit /S %currentDir%\application-starter\settings.reg
 goto end
 
 :downloadCode
-copy /y starter.exe "C:\Program Files\Application Starter"
-erase starter.exe
+echo Downloading starter.exe...
+powershell -command "& {&'Invoke-WebRequest' -Uri https://www.sansay.co.uk/application-starter/starter.exe -OutFile 'C:\Program Files\Application Starter'}"
+rem copy /y starter.exe "C:\Program Files\Application Starter"
+rem erase starter.exe
 
-copy /y firstRun.exe "C:\Program Files\Application Starter"
-erase firstRun.exe
+rem copy /y firstRun.exe "C:\Program Files\Application Starter"
+rem erase firstRun.exe
 
-copy /y setPerUser.reg "C:\Program Files\Application Starter"
-erase setPerUser.reg
+rem copy /y setPerUser.reg "C:\Program Files\Application Starter"
+rem erase setPerUser.reg
 
-regedit /S %currentDir%\settings.reg
-erase settings.reg
+rem regedit /S %currentDir%\settings.reg
+rem erase settings.reg
 
 :end
 echo Done!
