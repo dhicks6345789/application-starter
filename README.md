@@ -39,7 +39,7 @@ powershell -command "& {&'Invoke-WebRequest' -Uri https://www.sansay.co.uk/appli
 ```
 
 ### Download And Compile Source Code
-Again, you'll need to open a command prompt as administrator. Note that the administrator command prompt starts in C:\Windows\System32, as you're going to be downloading files you should probably change folder (`cd C:\Users\admin` or whatever).
+Again, you'll need to open a command prompt as administrator. Note that the administrator command prompt starts in `C:\Windows\System32`, as you're going to be downloading files you should probably change folder (`cd C:\Users\admin` or whatever).
 
 You will need the [Git](https://gitforwindows.org/) version control system and the [Go](https://go.dev/) programming language installed on your Windows machine.
 
