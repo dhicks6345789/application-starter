@@ -4,7 +4,7 @@ A utility to help with the startup order of Windows applications - in particular
 ## Who Is This Project For?
 The code and settings contained in this project are intended for administrators of fleets of Microsoft Windows devices (laptops, desktop workstations, etc) who intend to have their users use the Google Drive client on their machines. This probably means administrators of school or company IT setups, the average home user is probably not going to find this very useful. In particular, you will probably need devices running an Enterprise or Education edition of Windows 10 or 11 (although all versions of Windows 11 might work, I'm not sure).
 
-Combining this project along with the [Google Drive client for Windows](https://www.google.com/intl/en-GB/drive/download/) and [Google Credential Provider for Windows](https://support.google.com/a/answer/9250996?hl=en) should provide a mechansim to have both cloud (Google) based authentication and file storage for a Windows machine without the need for an Active Directory setup.
+Combining this project with the [Google Drive client for Windows](https://www.google.com/intl/en-GB/drive/download/) and [Google Credential Provider for Windows](https://support.google.com/a/answer/9250996?hl=en) should provide a mechansim to have both cloud (i.e. Google) based authentication and file storage for a Windows machine without the need for an Active Directory setup.
 
 ## What Does This Project Do?
 
