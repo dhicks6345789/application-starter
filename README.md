@@ -1,5 +1,5 @@
 # application-starter
-A utility to help with the startup order of Windows applications - in particular, to make sure Google Drive startes before the Desktop so that the user desktop folder can be redirected to Google Drive.
+A utility to help with the startup order of Windows applications - in particular, to make sure Google Drive starts before the Desktop so that the user desktop folder can be redirected to Google Drive.
 
 ## Who Is This Project For?
 The code and settings contained in this project are intended for administrators of fleets of Microsoft Windows devices (laptops, desktop workstations, etc) who intend to have their users use the Google Drive client on their machines. This probably means administrators of school or company IT setups, the average home user is probably not going to find this very useful. In particular, you will probably need devices running an Enterprise or Education edition of Windows 10 or 11 (although all versions of Windows 11 might work, I'm not sure).
@@ -30,6 +30,8 @@ The installer will also disable the Google Drive client start-on-login option as
 When a user logs in to a Windows computer for the first time they will be presented with the standard authorise-Google-Drive-for-this-machine dialog. They won't be able to proceed until they get Google Drive set up. If this is the first time a new user has logged in to any machine they will have a "Desktop" folder created in their "My Drive" section. Logging on to other machines, they should see the exact same desktop contents (although, typically, Windows re-arranges items on different desktops, especially if the screen resolution is different).
 
 This project has been tested with the [Google Credential Provider for Windows](https://support.google.com/a/answer/9250996?hl=en) - a user should be able to log into Windows with their Google credentials and straight away be presented with the authorisation dialog to allow Google Drive access as well, credentials from the login should be passed through to Chrome.
+
+Again, before you install anything, this project is intended for administrators of fleets of devices - this project is something you install on a test device of some kind, not on your or someone else's mission-critical personal workstation. It doesn't carry out any mass moving or deleting of files, but it does change the way your computer starts up, so you might be left with a blank screen on login (if you do find that, hitting ctrl-alt-delete should bring up a dialog that allows you to get a desktop environment going).
 
 ### One-Line Command
 Open a command prompt as administrator and run the following line:
