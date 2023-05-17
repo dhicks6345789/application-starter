@@ -60,7 +60,7 @@ goto end
 
 :downloadCode
 echo Downloading starter.exe...
-powershell -command "& {&'Invoke-WebRequest' -Uri https://www.sansay.co.uk/application-starter/binaries/starter.exe -OutFile 'C:\Program Files\Application Starter'}"
+powershell -command "& {&'Invoke-WebRequest' -Uri https://www.sansay.co.uk/application-starter/binaries/starter-win-amd64.exe -OutFile 'C:\Program Files\Application Starter\starter.exe'}"
 rem copy /y starter.exe "C:\Program Files\Application Starter"
 rem erase starter.exe
 
