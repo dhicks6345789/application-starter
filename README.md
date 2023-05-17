@@ -19,7 +19,19 @@ Therefore, we run the helper application before Explorer starts by using the `Us
 This project contains a batch file installer and executable code, written in Go, to implement the setup as described above.
 
 ## Installation
-Clone the project, run the batch file.
+### One-Line Command
+Open a command prompt as administrator and run the following line:
+
+`powershell -command "& {&'Invoke-WebRequest' -Uri https://www.sansay.co.uk/application-starter/install.bat -OutFile install.bat}" && install.bat && erase install.bat`
+
+### Download Source Code
+Again, you'll need to open a command prompt as administrator. Note that the administrator command prompt starts in C:\Windows\System32, as you're going to be downloading files you should probably change folder (`cd C:\Users\admin` or whatever).
+
+You'll need [Git](https://gitforwindows.org/) installed on your Windows machine. Clone the project:
+
+`git clone https://github.com/dhicks6345789/application-starter.git`
+
+This should result in a folder called "application-starter" in the current folder.
 
 ## To Do
 - Have batch file download and runnable in one line.
