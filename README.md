@@ -27,6 +27,8 @@ You don't need to sign in to the Google Drive client to run the installer. The i
 
 The installer will also disable the Google Drive client start-on-login option as Google Drive is started separatly by the helper application. If the end user changes the option it shouldn't be any great problem, the Drive client will just pop up a status / file browser window on startup, just have the user change the option back again if they find that annoying.
 
+The installer will set the user Registry entry to redirect the user's Desktop folder. It will also set the local desktop folder (`C:\Users\username\Desktop`) to be read-only to avoid the user trying to write anything there.
+
 When a user logs in to a Windows computer for the first time they will be presented with the standard authorise-Google-Drive-for-this-machine dialog. They won't be able to proceed until they get Google Drive set up. If this is the first time a new user has logged in to any machine they will have a "Desktop" folder created in their "My Drive" section. Logging on to other machines, they should see the exact same desktop contents (although, typically, Windows re-arranges items on different desktops, especially if the screen resolution is different).
 
 This project has been tested with the [Google Credential Provider for Windows](https://support.google.com/a/answer/9250996?hl=en) - a user should be able to log into Windows with their Google credentials and straight away be presented with the authorisation dialog to allow Google Drive access as well, credentials from the login should be passed through to Chrome.
@@ -60,4 +62,8 @@ application-starter\install.bat
 With the source code present the script will compile the Go applications into executables rather than downloading them.
 
 ## Help / Support
-This project comes with no garuntee of any further help or support, or even that it won't simply break your computer. I'm a systems administrator for a school, the code and setup in this project has been tested with the particular setup available to me. If you've found this project there's a good chance you are also the administrator for a school or company setup involving both Windows machines and a Google Workspace domain. If you have useful testing feedback or any suggestions you can open an issue on the [Github project](https://github.com/dhicks6345789/application-starter) or contact me over on [EduGeek](http://www.edugeek.net/members/dhicks.html) - if you're setting up Google Workspace / Chromebooks in an educational setting then EduGeek is a good community to browse and ask questions of.
+This project comes with no garuntee of any further help or support, or even that it won't simply break your computer. I'm a systems administrator for a school, the code and setup in this project has been tested with the particular setup available to me (Windows 11 laptop, Google Workspace for Education). If you've found this project there's a good chance you are also the administrator for a school or company setup involving both Windows machines and a Google Workspace domain. If you have useful testing feedback or any suggestions you can open an issue on the [Github project](https://github.com/dhicks6345789/application-starter) or contact me over on [EduGeek](http://www.edugeek.net/members/dhicks.html) - if you're setting up Google Workspace / Chromebooks in an educational setting then EduGeek is a good community to browse and ask questions of.
+
+### To Do
+- More testing.
+- Make list of startup options configurable to allow for different applications. Might be particularly handy as a way of setting up kisok machines for exams or displays.
