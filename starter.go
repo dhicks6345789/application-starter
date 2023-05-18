@@ -31,13 +31,8 @@ func main() {
   _, pathErr := os.Stat(userHome + "\\Documents\\My Drive");
   //_, pathErr := os.Stat("G:\\My Drive");
   // C:\Users\%USERNAME%\GoogleDrive
-  // ...if not, start it, making sure the Google Drive mount point folder (the user's Documents folder) is empty before Google DRive starts and tries to mount there...
+  // ...if not, start it...
   if pathErr != nil {
-    if _, oldDocsErr := os.Stat(userHome + "\\Old Documents"); os.IsNotExist(oldDocsErr) {
-      // Create the Old Documents folder to move anything found in the user's Documents folder into.
-      _ = os.Mkdir(userHome + "\\Old Documents", 0750)
-    }
-    
     _ = exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
   }
   // ...and wait for it to be ready.
