@@ -22,11 +22,18 @@ func main() {
   // Stop Windows Explorer.
   _ = exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
   
+  /*
   // Make sure the Google Drive mount point folder (the user's Documents folder) is empty before Google Drive starts and tries to mount there...
   if _, oldDocsErr := os.Stat(userHome + "\\Old Documents"); os.IsNotExist(oldDocsErr) {
     // Create the oldDocuments folder to move anything found in the user's Documents folder into.
     _ = exec.Command("C:\\Windows\\System32\\cmd.exe", "/C", "move /Y " + userHome + "\\Documents " + userHome + "\\oldDocuments").Run()
     _ = os.Mkdir(userHome + "\\Documents", 0750)
+  }
+  */
+  
+  // Make sure the Google Drive mount point folder exists.
+  if _, gDriveErr := os.Stat(userHome + "\\Google Drive"); os.IsNotExist(gDriveErr) {
+    _ = os.Mkdir(userHome + "\\Google Drive", 0750)
   }
   
   // Set user folder redirects.
@@ -34,7 +41,7 @@ func main() {
   
   // Check if Google Drive is ready by checking for G:\My Drive...
   //_, pathErr := os.Stat("G:\\My Drive");
-  _, pathErr := os.Stat(userHome + "\\Documents\\My Drive")
+  _, pathErr := os.Stat(userHome + "\\Google Drive\\My Drive")
   // ...if not, start it...
   if pathErr != nil {
     _ = exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
@@ -43,20 +50,23 @@ func main() {
   for pathErr != nil {
     time.Sleep(1 * time.Second)
     //_, pathErr = os.Stat("G:\\My Drive");
-    _, pathErr = os.Stat(userHome + "\\Documents\\My Drive");
+    _, pathErr = os.Stat(userHome + "\\Google Drive\\My Drive");
   }
   // ...and wait for G:\My Drive\Desktop to be ready...
   tries := 1
   //_, pathErr = os.Stat("G:\\My Drive\\Desktop")
-  _, pathErr = os.Stat(userHome + "\\Documents\\My Drive\\Desktop")
+  _, pathErr = os.Stat(userHome + "\\Google Drive\\My Drive\\Desktop")
   for pathErr != nil && tries < 60 {
     //_ = os.Mkdir("G:\\My Drive\\Desktop", 0750)
-    _ = os.Mkdir(userHome + "\\Documents\\My Drive\\Desktop", 0750)
+    _ = os.Mkdir(userHome + "\\Google Drive\\My Drive\\Desktop", 0750)
     time.Sleep(1 * time.Second)
     //_, pathErr = os.Stat("G:\\My Drive\\Desktop")
-    _, pathErr = os.Stat(userHome + "\\Documents\\My Drive\\Desktop")
+    _, pathErr = os.Stat(userHome + "\\Google Drive\\My Drive\\Desktop")
     tries = tries + 1
   }
+  
+  // Non-peristantly map G: drive to Google Drive for the local user only.
+  _ = exec.Command("C:\\Windows\\System32\\subst.exe", "G:", userHome + "\\Google Drive").Start()
   
   // Re-start Windows Explorer.
   _ = exec.Command("C:\\Windows\\Explorer.exe").Start()
