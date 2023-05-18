@@ -9,7 +9,7 @@ import (
 
 func main() {
   // Get the user's defined profile folder.
-  userName := strings.TrimSpace(os.Getenv("username"))
+  //userName := strings.TrimSpace(os.Getenv("username"))
   userHome := strings.TrimSpace(os.Getenv("userprofile"))
   if userHome == "" {
     os.Exit(0)
@@ -39,7 +39,7 @@ func main() {
   for pathErr != nil && tries < 60 {
     time.Sleep(1 * time.Second)
     // _, pathErr = os.Stat("G:\\My Drive");
-    _, pathErr := os.Stat(userHome + "\\Documents\\My Drive");
+    _, pathErr = os.Stat(userHome + "\\Documents\\My Drive");
     tries = tries + 1
   }
   
@@ -47,5 +47,5 @@ func main() {
   _ = exec.Command("C:\\Windows\\Explorer.exe").Start()
   
   // Non-peristantly map G: drive to Google Drive for the local user only.
-  _ = exec.Command("C:\Windows\System32\subst.exe", "G:", userHome + "\\Documents").Start()
+  _ = exec.Command("C:\\Windows\\System32\\subst.exe", "G:", userHome + "\\Documents").Start()
 }
