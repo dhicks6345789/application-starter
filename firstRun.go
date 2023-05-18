@@ -22,6 +22,13 @@ func main() {
   // Stop Windows Explorer.
   _ = exec.Command("C:\\Windows\\System32\\Taskkill.exe", "/f", "/im", "explorer.exe").Run()
   
+  // Make sure the Google Drive mount point folder (the user's Documents folder) is empty before Google Drive starts and tries to mount there...
+  if _, oldDocsErr := os.Stat(userHome + "\\Old Documents"); os.IsNotExist(oldDocsErr) {
+    // Create the oldDocuments folder to move anything found in the user's Documents folder into.
+    _ = exec.Command("C:\Windows\System32\cmd.exe", "/C", "move /Y " + userHome + "\\Documents " + userHome + "\\oldDocuments").Run()
+    _ = os.Mkdir(userHome + "\\Documents", 0750)
+  }
+  
   // Set user folder redirects.
   _ = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
   
