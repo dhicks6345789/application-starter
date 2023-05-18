@@ -28,7 +28,7 @@ func main() {
   
   // Check if Google Drive is ready by checking for G:\My Drive...
   tries := 1
-  _, pathErr := os.Stat(userHome + "\\Documents\\My Drive");
+  _, pathErr := os.Stat(userHome + "\\Google Drive\\My Drive");
   //_, pathErr := os.Stat("G:\\My Drive");
   // C:\Users\%USERNAME%\GoogleDrive
   // ...if not, start it...
@@ -39,13 +39,13 @@ func main() {
   for pathErr != nil && tries < 60 {
     time.Sleep(1 * time.Second)
     // _, pathErr = os.Stat("G:\\My Drive");
-    _, pathErr = os.Stat(userHome + "\\Documents\\My Drive");
+    _, pathErr = os.Stat(userHome + "\\Google Drive\\My Drive");
     tries = tries + 1
   }
   
+  // Non-peristantly map G: drive to Google Drive for the local user only.
+  _ = exec.Command("C:\\Windows\\System32\\subst.exe", "G:", userHome + "\\Google Drive").Start()
+  
   // Re-start Windows Explorer.
   _ = exec.Command("C:\\Windows\\Explorer.exe").Start()
-  
-  // Non-peristantly map G: drive to Google Drive for the local user only.
-  _ = exec.Command("C:\\Windows\\System32\\subst.exe", "G:", userHome + "\\Documents").Start()
 }
