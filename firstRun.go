@@ -25,7 +25,7 @@ func main() {
   // Make sure the Google Drive mount point folder (the user's Documents folder) is empty before Google Drive starts and tries to mount there...
   if _, oldDocsErr := os.Stat(userHome + "\\Old Documents"); os.IsNotExist(oldDocsErr) {
     // Create the oldDocuments folder to move anything found in the user's Documents folder into.
-    _ = exec.Command("C:\Windows\System32\cmd.exe", "/C", "move /Y " + userHome + "\\Documents " + userHome + "\\oldDocuments").Run()
+    _ = exec.Command("C:\\Windows\\System32\\cmd.exe", "/C", "move /Y " + userHome + "\\Documents " + userHome + "\\oldDocuments").Run()
     _ = os.Mkdir(userHome + "\\Documents", 0750)
   }
   
