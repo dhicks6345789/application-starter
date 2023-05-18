@@ -26,7 +26,8 @@ func main() {
   _ = exec.Command("C:\\Windows\\regedit.exe", "/S", "C:\\Program Files\\Application Starter\\setPerUser.reg").Run()
   
   // Check if Google Drive is ready by checking for G:\My Drive...
-  _, pathErr := os.Stat("G:\\My Drive");
+  //_, pathErr := os.Stat("G:\\My Drive");
+  _, pathErr := os.Stat(userHome + "\\Documents\\My Drive")
   // ...if not, start it...
   if pathErr != nil {
     _ = exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
@@ -34,15 +35,19 @@ func main() {
   // ...and wait for it to be ready...
   for pathErr != nil {
     time.Sleep(1 * time.Second)
-    _, pathErr = os.Stat("G:\\My Drive");
+    //_, pathErr = os.Stat("G:\\My Drive");
+    _, pathErr = os.Stat(userHome + "\\Documents\\My Drive");
   }
   // ...and wait for G:\My Drive\Desktop to be ready...
   tries := 1
-  _, pathErr = os.Stat("G:\\My Drive\\Desktop");
+  //_, pathErr = os.Stat("G:\\My Drive\\Desktop")
+  _, pathErr = os.Stat(userHome + "\\Documents\\My Drive\\Desktop")
   for pathErr != nil && tries < 60 {
-    _ = os.Mkdir("G:\\My Drive\\Desktop", 0750)
+    //_ = os.Mkdir("G:\\My Drive\\Desktop", 0750)
+    _ = os.Mkdir(userHome + "\\Documents\\My Drive\\Desktop", 0750)
     time.Sleep(1 * time.Second)
-    _, pathErr = os.Stat("G:\\My Drive\\Desktop");
+    //_, pathErr = os.Stat("G:\\My Drive\\Desktop")
+    _, pathErr = os.Stat(userHome + "\\Documents\\My Drive\\Desktop")
     tries = tries + 1
   }
   
