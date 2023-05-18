@@ -16,7 +16,7 @@ func main() {
   }
   
   // Make the user's local (and, hopefully, unused) Desktop folder read-only.
-  _ = exec.Command("C:\\Windows\\System32\\icacls.exe", userHome + "\\Desktop", "/inheritance:r", "/grant:r", "" + userName + ":R").Run()
+  // _ = exec.Command("C:\\Windows\\System32\\icacls.exe", userHome + "\\Desktop", "/inheritance:r", "/grant:r", "" + userName + ":R").Run()
   
   // If this is a user's first run, we need to quit so the first run application can run instead.
   if _, pathErr := os.Stat(userHome + "\\AppData\\Local\\ApplicationStarter"); os.IsNotExist(pathErr) {
@@ -28,7 +28,9 @@ func main() {
   
   // Check if Google Drive is ready by checking for G:\My Drive...
   tries := 1
-  _, pathErr := os.Stat("G:\\My Drive");
+  _, pathErr := os.Stat(userHome + "\\Documents\\My Drive");
+  //_, pathErr := os.Stat("G:\\My Drive");
+  // C:\Users\%USERNAME%\GoogleDrive
   // ...if not, start it...
   if pathErr != nil {
     _ = exec.Command("C:\\Program Files\\Google\\Drive File Stream\\launch.bat").Start()
@@ -36,10 +38,14 @@ func main() {
   // ...and wait for it to be ready.
   for pathErr != nil && tries < 60 {
     time.Sleep(1 * time.Second)
-    _, pathErr = os.Stat("G:\\My Drive");
+    // _, pathErr = os.Stat("G:\\My Drive");
+    _, pathErr := os.Stat(userHome + "\\Documents\\My Drive");
     tries = tries + 1
   }
   
   // Re-start Windows Explorer.
   _ = exec.Command("C:\\Windows\\Explorer.exe").Start()
+  
+  // Non-peristantly map G: drive to Google Drive for the local user only.
+  _ = exec.Command("C:\Windows\System32\subst.exe", "G:", userHome + "\\Documents").Start()
 }
